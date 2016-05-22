@@ -1,0 +1,258 @@
+/*
+    Copyright 2016 Cédric Levieux, Parti Pirate
+
+    This file is part of GererMaCampagne.
+
+    GererMaCampagne is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GererMaCampagne is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GererMaCampagne.  If not, see <http://www.gnu.org/licenses/>.
+*/
+@font-face {
+    font-family: 'ubuntu';
+    src: url('../fonts/ubuntu-R.eot');
+    src: url('../fonts/ubuntu-R.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ubuntu-R.woff2') format('woff2'),
+         url('../fonts/ubuntu-R.woff') format('woff'),
+         url('../fonts/ubuntu-R.ttf') format('truetype'),
+         url('../fonts/ubuntu-R.svg#ubunturegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html,body {
+	height: 100%;
+}
+
+.theme-showcase {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin-bottom: -50px;
+}
+
+.navbar-bottom {
+	margin-bottom: 0px;
+	margin-top: 20px;
+}
+
+.modal-dialog form {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.panel-heading a:after {
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";
+	float: right;
+	color: grey;
+}
+
+.panel-heading a.collapsed:after {
+	content: "\e080";
+}
+
+.mailForm {
+	display: none;
+}
+
+#loginForm {
+	position: relative;
+	z-index: 1000;
+	width: 260px;
+	margin-left: -260px;
+	float: right;
+	color: #ffffff;
+	background: rgba(0, 0, 0, 0.75);
+	top: -60px;
+	right: 10px;
+	border-radius: 10px;
+}
+
+.otbHidden {
+	display: none;
+}
+
+.color-inherit {
+	color: inherit;
+}
+
+.vertical-middle {
+	vertical-align: middle !important;
+}
+
+.lastDiv {
+	min-height: 72px;
+	height: 72px;
+}
+
+.authorColumn {
+	width: 160px;
+	max-width: 160px;
+}
+
+.dateColumn {
+	width: 160px;
+	max-width: 160px;
+}
+
+.validationColumn {
+	width: 130px;
+	max-width: 130px;
+}
+
+.actionColumn {
+	width: 230px;
+	max-width: 230px;
+}
+
+.padding-left-0 {
+	padding-left: 0;
+}
+
+.margin-bottom-0 {
+	margin-bottom: 0;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}
+
+.labelForCheckbox {
+	border: 0;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.tweeter-count {
+	background-color: transparent;
+	color: #8899a6;
+	display: inline-block;
+	width: 35px;
+	border: 0;
+	padding: 0 3px;
+	position: relative;
+	vertical-align: top;
+	text-align: right;
+	font-size: 14px;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, .75);
+}
+
+.alert-primary {
+  color: #656565;
+//  background-color: #E9E9E9;
+  background-color: #FFF;
+  border-color: #DCDCDC;
+}
+.alert-primary hr {
+  border-top-color: #D1D1D1;
+}
+.alert-primary .alert-link {
+  color: #4A4A4A;
+}
+
+#votingPaper {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: gray; /* IE 6-9 */
+}
+
+rectangle.votingPaper-rectangle {
+	display: inline-block;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.wysiwyg-btn {
+	padding: 4px 7px 0px 7px;
+}
+
+.wysiwyg-btn[disabled] span {
+    opacity: 0.35;
+}
+
+.wysiwyg {
+    display: inline-block;
+    width: 26px;
+    height: 24px;
+    background: url(../images/icons.png);
+}
+
+.wysiwyg2 {
+    display: inline-block;
+    width: 26px;
+    height: 24px;
+    background: url(../images/icons2.png);
+}
+
+.wysiwyg-top {
+    background-position: -98px -28px;
+}
+
+.wysiwyg-toper {
+    background-position: -66px -28px;
+}
+
+.wysiwyg-bottomer {
+    background-position: -34px -28px;
+}
+
+.wysiwyg-bottom {
+    background-position: -02px -28px;
+}
+
+.wysiwyg-totop {
+    background-position: -38px -39px;
+}
+
+.wysiwyg-tomiddle {
+    background-position: -75px -39px;
+}
+
+.wysiwyg-tobottom {
+    background-position: -112px -39px;
+}
+
+.wysiwyg-toleft {
+    background-position: -38px -4px;
+}
+
+.wysiwyg-tocenter {
+    background-position: -75px -4px;
+}
+
+.wysiwyg-toright {
+    background-position: -112px -4px;
+}
+
+.wysiwyg3 {
+    display: inline-block;
+    width: 26px;
+    height: 24px;
+    background: url(../images/icons3.png);
+}
+
+.wysiwyg-selection {
+    background-position: -4px -2px;
+}
+
+.wysiwyg-text {
+    background-position: -4px -450px;
+}
+
+.wysiwyg-rectangle {
+    background-position: -4px -130px;
+}

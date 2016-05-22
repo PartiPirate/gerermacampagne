@@ -1,0 +1,27 @@
+deposit_representative_declaration      => Dépôt du mandataire                          => A    =>
+open_bank_account                       => Ouvrir un compte bancaire                    => B    => A
+
+search_chartered_accountant             => Chercher un expert-comptable                 => C    =>
+
+want_voting_paper                       => Je veux des bulletins                        => D    =>
+want_posters                            => Je veux des affiches                         => E    =>
+want_circular                           => Je veux des circulaires                      => F    =>
+
+search_printer                          => Chercher un imprimeur                        => G    =>
+deliver_prefecture                      => Livraison à la préfecture                    => H    => G
+
+ask_campaign_accounts_form              => Demander formulaire de compte de campagne    => I    =>
+receive_campaign_accounts_form          => Recevoir formulaire de compte de campagne    => J    => I
+
+ask_received_donation                   => Demander des souches de reçus-dons           => K    => A, P
+receive_received_donation               => Recevoir des souches de reçus-dons           => L    => K
+
+close_bank_account                      => Fermer le compte bancaire                    => M    => B
+fill_received_donation                  => Remplir les reçus-dons                       => N    => L
+deposit_campaign_account                => Dépôt des comptes de campagne                => O    => N, M, S
+
+deposit_candidature                     => Dépôt de candidature                         => P    => A, Q
+
+ask_electoral_list_registration         => Demander l'inscription sur liste electorale  => Q    =>
+receive_electoral_list_registration     => Recevoir l'inscription sur liste electorale  => R    => Q
+fill_campaign_accounts_form             => Remplir formulaire de compte de campagne     => S    => J, N

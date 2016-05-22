@@ -1,0 +1,20 @@
+tache                                       traduction                                              depend      ordre
+deposit_representative_declaration      => Dépôt du mandataire                          => A    =>          => 1        => D
+open_bank_account                       => Ouvrir un compte bancaire                    => B    => A        => 2        => D
+ask_electoral_list_registration         => Demander l'inscription sur liste electorale  => Q    =>          => 3        => D
+receive_electoral_list_registration     => Recevoir l'inscription sur liste electorale  => R    => Q        => 4        => D
+deposit_candidature                     => Dépôt de candidature                         => P    => A, Q     => 5        => D
+ask_campaign_accounts_form              => Demander formulaire de compte de campagne    => I    =>          => 6        => D
+search_chartered_accountant             => Chercher un expert-comptable                 => C    =>          => 7        => D
+want_voting_paper                       => Je veux des bulletins                        => D    =>          => 8        => D
+want_posters                            => Je veux des affiches                         => E    =>          => 9        => D
+want_circular                           => Je veux des circulaires                      => F    =>          => 10       => D
+search_printer                          => Chercher un imprimeur                        => G    =>          => 11       => D
+deliver_prefecture                      => Livraison à la préfecture                    => H    => G        => 12       => D
+receive_campaign_accounts_form          => Recevoir formulaire de compte de campagne    => J    => I        => 13       => D
+ask_received_donation                   => Demander des souches de reçus-dons           => K    => A, P     => 14       => D
+receive_received_donation               => Recevoir des souches de reçus-dons           => L    => K        => 15       => D
+close_bank_account                      => Fermer le compte bancaire                    => M    => B        => 16       => D
+fill_received_donation                  => Remplir les reçus-dons                       => N    => L        => 17       => D
+fill_campaign_accounts_form             => Remplir formulaire de compte de campagne     => S    => J, N     => 18       => D
+deposit_campaign_account                => Dépôt des comptes de campagne                => O    => N, M, S  => 19       => D
