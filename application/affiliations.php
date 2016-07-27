@@ -93,6 +93,14 @@ foreach($administratedParties as $index => $party) {
 
 				<form class="form-horizontal">
 					<fieldset>
+					
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12">
+							<label class="col-md-4 control-label" for="campaignTemplateInput"><?php echo lang("campaign_property_template"); ?></label>
+							<div class="col-md-8">
+								<p class="form-control-static"><?php echo $partyCampaign["cte_label"]; ?></p>
+							</div>
+						</div>
+					
 						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6">
 							<label class="col-md-6 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_electoralDistrict"); ?></label>
 							<div class="col-md-6">

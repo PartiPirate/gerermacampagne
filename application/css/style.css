@@ -263,7 +263,8 @@ rectangle.votingPaper-rectangle {
 
 body {
     background-image: url(../images/background_lightgrey.png);
-    background-size: cover;	
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .breadcrumb {

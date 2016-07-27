@@ -92,6 +92,7 @@ $lang["rights_substitute"] = "Suppléant-e";
 $lang["rights_representative"] = "Mandataire";
 $lang["rights_charteredAccountant"] = "Expert Comptable";
 
+$lang["campaign_property_template"] = "Type de campagne";
 $lang["campaign_property_name"] = "Nom";
 $lang["campaign_property_electoralDistrict"] = "Circonscription";
 $lang["campaign_property_startDate"] = "Premier tour";

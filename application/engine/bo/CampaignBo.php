@@ -197,7 +197,7 @@ class CampaignBo {
 	function getCampaigns($filters = null) {
 		$campaigns = array();
 		$args = array();
-		$query = "	SELECT DISTINCT campaigns.*, political_parties.*, user_current_campaigns.*";
+		$query = "	SELECT DISTINCT campaigns.*, political_parties.*, user_current_campaigns.*, campaign_templates.*";
 
 		if ($filters && isset($filters["withRights"]) && $filters["withRights"]) {
 			$query .= "	,user_rights.*";
@@ -208,6 +208,7 @@ class CampaignBo {
 							AND uri_right IN ('listHead', 'candidate', 'substitute', 'representative')
 					LEFT JOIN political_parties ON ppa_id = cam_political_party_id
 					LEFT JOIN user_current_campaigns ON ucc_user_id = uri_user_id AND ucc_campaign_id = cam_id
+					LEFT JOIN campaign_templates ON cam_campaign_template_id = cte_id
 					WHERE
 						1 = 1 ";
 
