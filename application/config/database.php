@@ -22,15 +22,15 @@
 function openConnection() {
 	global $config;
 
-	$dns = 'mysql:host='.$config["database"]["host"].';dbname=' . $config["database"]["database"];
+	$dsn = 'mysql:host='.$config["database"]["host"].';dbname=' . $config["database"]["database"];
 
 	if (isset($config["database"]["port"])) {
-		$dns .= ";port=" . $config["database"]["port"];
+		$dsn .= ";port=" . $config["database"]["port"];
 	}
 
 	$user = $config["database"]["login"];
 	$password = $config["database"]["password"];
-	$pdo = new PDO($dns, $user, $password );
+	$pdo = new PDO($dsn, $user, $password );
 
 	return $pdo;
 }
