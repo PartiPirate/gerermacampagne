@@ -45,9 +45,7 @@ if(!isset(\$config)) {
 \$config[\"database\"][\"password\"] = \"" . $_REQUEST["database_password_input"] . "\";
 \$config[\"database\"][\"database\"] = \"" . $_REQUEST["database_database_input"] . "\";
 \$config[\"database\"][\"prefix\"] = \"\";
-\$config[\"galette\"][\"db\"] = \"" . $_REQUEST["galette_db_input"] . "\";
-\$config[\"personae\"][\"db\"] = \"" . $_REQUEST["personae_db_input"] . "\";
-		
+
 \$config[\"memcached\"] = array();
 \$config[\"memcached\"][\"host\"] = \"" . $_REQUEST["memcached_host_input"] . "\";
 \$config[\"memcached\"][\"port\"] = " . $_REQUEST["memcached_port_input"] . ";

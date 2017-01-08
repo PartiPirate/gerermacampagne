@@ -38,6 +38,16 @@ if ($numberOfFails > 2) {
 
 $data = array();
 
+if ($login == $config["administrator"]["login"] && $password == $config["administrator"]["password"]) {
+	$_SESSION["administrator"] = true;
+	$data["ok"] = "ok";
+
+//	addLog($_SERVER, $_SESSION, null, array("result" => "administrator"));
+	
+	header('Location: administration.php');
+	exit();
+}
+
 if ($userBo->login($login, $password, $_SESSION)) {
 	$data["ok"] = "ok";
 }
@@ -60,5 +70,14 @@ $logAction["lac_ip"] = $remoteIp;
 
 $logActionBo->addLogAction($logAction);
 
-echo json_encode($data);
+if (isset($data["ok"]) && $_POST["referer"]) {
+	header('Location: ' . $_POST["referer"]);
+}
+else if (!isset($data["ok"]) && $_POST["referer"]) {
+	header('Location: connect.php?error=' . $data["message"] . "&referer=" . urlencode($_POST["referer"]));
+}
+else {
+	echo json_encode($data);
+}
+
 ?>

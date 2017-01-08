@@ -1,5 +1,5 @@
 <?php /*
-	Copyright 2016 Cédric Levieux, Parti Pirate
+	Copyright 2014-2015 Cédric Levieux, Jérémy Collot, ArmagNet
 
 	This file is part of GererMaCampagne.
 
@@ -16,9 +16,14 @@
     You should have received a copy of the GNU General Public License
     along with GererMaCampagne.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+$lang["breadcrumb_connect"] = "Se connecter";
+
+$lang["connect_guide"] = "Bienvenue sur l'écran de connexion de GererMaCampagne";
+$lang["connect_form_legend"] = "Connexion";
+$lang["connect_form_loginInput"] = "Identifiant";
+$lang["connect_form_loginHelp"] = "Votre identifiant ou votre email";
+$lang["connect_form_passwordInput"] = "Mot de passe";
+$lang["connect_form_passwordHelp"] = "Votre mot de passe";
+
 ?>
-<div class="text-center">
-    <a href="connect.php" class="btn btn-primary">
-		<?php echo lang("login_button"); ?> <span class="glyphicon glyphicon-log-in"></span>
-	</a>
-</div>

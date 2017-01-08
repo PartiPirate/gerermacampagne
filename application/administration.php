@@ -37,7 +37,7 @@ include_once("header.php");
 
 		<div id="server-panel" class="panel panel-default">
 			<div class="panel-heading">
-				<a data-toggle="collapse" data-target="#server-panel-body" href="#"><?php echo lang("administration_server"); ?></a>
+				<a data-toggle="collapse" data-target="#server-panel-body" href="#server-panel-body"><?php echo lang("administration_server"); ?></a>
 			</div>
 			<div class="panel-body panel-collapse collapse in" id="server-panel-body">
 
@@ -75,7 +75,7 @@ include_once("header.php");
 	
 		<div id="database-panel" class="panel panel-default">
 			<div class="panel-heading">
-				<a data-toggle="collapse" data-target="#database-panel-body" class="collapsed" href="#"><?php echo lang("administration_database"); ?></a>
+				<a data-toggle="collapse" data-target="#database-panel-body" class="collapsed" href="#database-panel-body"><?php echo lang("administration_database"); ?></a>
 			</div>
 			<div class="panel-body panel-collapse collapse " id="database-panel-body">
 			
@@ -113,22 +113,6 @@ include_once("header.php");
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label class="col-md-2 control-label" for="galette_db_input"><?php echo lang("administration_database_galette"); ?></label>
-					<div class="col-md-10">
-						<input id="galette_db_input" name="galette_db_input" type="text" value="<?php echo $config["galette"]["db"] ?>" placeholder="placeholder" class="form-control input-md"> 
-						<!-- <span class="help-block">help</span> -->
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-md-2 control-label" for="personae_db_input"><?php echo lang("administration_database_personae"); ?></label>
-					<div class="col-md-10">
-						<input id="personae_db_input" name="personae_db_input" type="text" value="<?php echo $config["personae"]["db"] ?>" placeholder="placeholder" class="form-control input-md"> 
-						<!-- <span class="help-block">help</span> -->
-					</div>
-				</div>
-
 				<div class="row text-center">
 					<button id="btn-ping-database" class="btn btn-primary btn-primary" disabled="disabled"><?php echo lang("administration_ping_database"); ?></button>
 				</div>
@@ -138,7 +122,7 @@ include_once("header.php");
 	
 		<div id="memcached-panel" class="panel panel-default">
 			<div class="panel-heading">
-				<a data-toggle="collapse" data-target="#memcached-panel-body" class="collapsed" href="#"><?php echo lang("administration_memcached"); ?></a>
+				<a data-toggle="collapse" data-target="#memcached-panel-body" class="collapsed" href="#memcached-panel-body"><?php echo lang("administration_memcached"); ?></a>
 			</div>
 			<div class="panel-body panel-collapse collapse " id="memcached-panel-body">
 			
@@ -160,7 +144,7 @@ include_once("header.php");
 	
 		<div id="mail-panel" class="panel panel-default">
 			<div class="panel-heading">
-				<a data-toggle="collapse" data-target="#mail-panel-body" class="collapsed" href="#"><?php echo lang("administration_mail"); ?></a>
+				<a data-toggle="collapse" data-target="#mail-panel-body" class="collapsed" href="#mail-panel-body"><?php echo lang("administration_mail"); ?></a>
 			</div>
 			<div class="panel-body panel-collapse collapse " id="mail-panel-body">
 
@@ -224,7 +208,7 @@ include_once("header.php");
 	
 		<div id="account-panel" class="panel panel-default">
 			<div class="panel-heading">
-				<a data-toggle="collapse" data-target="#account-panel-body" class="collapsed" href="#"><?php echo lang("administration_account"); ?></a>
+				<a data-toggle="collapse" data-target="#account-panel-body" class="collapsed" href="#account-panel-body"><?php echo lang("administration_account"); ?></a>
 			</div>
 			<div class="panel-body panel-collapse collapse " id="account-panel-body">
 

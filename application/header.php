@@ -35,6 +35,14 @@ $user = SessionUtils::getUser($_SESSION);
 $userId = SessionUtils::getUserId($_SESSION);
 $language = SessionUtils::getLanguage($_SESSION);
 
+if (isset($_SESSION["administrator"]) && $_SESSION["administrator"]) {
+	$isAdministrator = true;
+}
+
+if ($page == "administration" && !$isAdministrator) {
+	header('Location: index.php');
+}
+
 $connection = openConnection();
 
 $ppBo = PoliticalPartyBo::newInstance($connection);
@@ -150,7 +158,7 @@ if ($userId) {
 					</li>
 					<li><a class="logoutLink" href="do_logout.php"><span class="glyphicon glyphicon-log-out"></span><span class="sr-only">Logout</span> </a></li>
 					<?php 	} else { ?>
-					<li><a id="loginLink" href="do_login.php"><span class="glyphicon glyphicon-log-in"></span><span class="sr-only">Login</span> </a></li>
+					<li><a id="loginLink" href="connect.php"><span class="glyphicon glyphicon-log-in"></span><span class="sr-only">Login</span> </a></li>
 					<?php 	}?>
 				</ul>
 			</div>

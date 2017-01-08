@@ -23,6 +23,8 @@ $lang["datetime_format"] = "the {date} at {time}";
 
 $lang["common_validate"] = "Validate";
 $lang["common_delete"] = "Delete";
+$lang["common_connect"] = "Connect";
+$lang["common_save"] = "Save";
 
 $lang["language_fr"] = "French";
 $lang["language_en"] = "English";

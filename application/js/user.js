@@ -19,10 +19,10 @@
 
 $(function() {
 	$("#loginLink, #connectButton").click(function(event) {
-		event.stopPropagation();
-		event.preventDefault();
+//		event.stopPropagation();
+//		event.preventDefault();
 
-		$("#loginForm").show();
+//		$("#loginForm").show();
 	});
 
 	$("#loginForm").mouseleave(function(event) {
