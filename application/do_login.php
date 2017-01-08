@@ -16,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with GererMaCampagne.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 session_start();
 include_once("config/database.php");
 require_once("engine/utils/SessionUtils.php");
@@ -71,7 +72,12 @@ $logAction["lac_ip"] = $remoteIp;
 $logActionBo->addLogAction($logAction);
 
 if (isset($data["ok"]) && $_POST["referer"]) {
-	header('Location: ' . $_POST["referer"]);
+	if (strpos($_POST["referer"], "activate") !== false) {
+		header('Location: index.php');
+	}
+	else {
+		header('Location: ' . $_POST["referer"]);
+	}
 }
 else if (!isset($data["ok"]) && $_POST["referer"]) {
 	header('Location: connect.php?error=' . $data["message"] . "&referer=" . urlencode($_POST["referer"]));

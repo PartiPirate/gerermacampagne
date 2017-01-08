@@ -213,10 +213,29 @@ $lang["register_validation_mail_not_valid"] = "Cette adresse mail n'est pas une 
 $lang["register_validation_mail_already_taken"] = "Cette adresse mail est déjà prise";
 $lang["register_validation_password_empty"] = "Le champ mot de passe ne peut être vide";
 
+$lang["register_add_mail_subject"] = "[GMC] Mail d'enregistrement et d'association";
+$lang["register_add_mail_content"] = "Bonjour {login},
+
+Il semblerait que vous ayez été enregistré sur GererMaCampagne parce que vous avez été ajouté à la campagne de {list_head}
+Pour confirmer votre enregistrement, veuillez cliquer sur le lien ci-dessous :
+{activationUrl}
+
+L'équipe #GererMaCampagne";
+
+$lang["add_mail_subject"] = "[GMC] Mail d'association";
+$lang["add_mail_content"] = "Bonjour {login},
+
+Il semblerait que vous ayez été ajouté à la campagne de {list_head}. Vous pouvez maintenant suivre la campagne sur :
+{applicationUrl}
+
+L'équipe #GererMaCampagne";
+
 $lang["activation_guide"] = "Bienvenue sur l'écran d'activation de votre compte";
 $lang["activation_title"] = "Statut de votre activation";
-$lang["activation_information_success"] = "L'activation de votre compte utilisateur a réussi. Vous pouvez maintenant vous <a id=\"connectButton\" href=\"#\">identifier</a>.";
+$lang["activation_information_success"] = "L'activation de votre compte utilisateur est quasi finie. Il ne reste plus qu'un petit formulaire à remplir.";
+$lang["activation_information_final"] = "L'activation de votre compte utilisateur a réussi. Vous pouvez maintenant vous <a id=\"connectButton\" href=\"connect.php\">identifier</a>.";
 $lang["activation_information_danger"] = "L'activation de votre compte utilisateur a échoué.";
+$lang["activation_form_legend"] = "Identifiants";
 
 $lang["forgotten_guide"] = "Vous avez oublié votre mot de passe, bienvenue sur la page qui vour permettra de récuperer un accès";
 $lang["forgotten_form_legend"] = "Récupération d'accès";

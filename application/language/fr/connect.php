@@ -25,5 +25,6 @@ $lang["connect_form_loginInput"] = "Identifiant";
 $lang["connect_form_loginHelp"] = "Votre identifiant ou votre email";
 $lang["connect_form_passwordInput"] = "Mot de passe";
 $lang["connect_form_passwordHelp"] = "Votre mot de passe";
+$lang["connect_form_confirmationInput"] = "Confirmation de votre mot de passe";
 
 ?>

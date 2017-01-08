@@ -42,7 +42,15 @@ else {
 }
 
 if ($activationStatus) {
-	$activationStatus = $userBo->activate($mail, $code);
+//	$activationStatus = $userBo->activate($mail, $code);
+
+	$user = $userBo->getUserByMail($mail);
+	if ($user) {
+		$activationStatus = ($user["use_activation_key"] == $code);
+	}
+	else {
+		$activationStatus = false;
+	}
 }
 
 $activation = "default";
@@ -67,12 +75,83 @@ else {
 		</p>
 	</div>
 
-	<div class="panel panel-<?php echo $activation; ?>">
+	<div id="panel-<?php echo $activation; ?>" class="panel panel-<?php echo $activation; ?>">
 		<div class="panel-heading">
 			<?php echo lang("activation_title"); ?>
 		</div>
 		<div class="panel-body"><?php echo lang("activation_information_" . $activation); ?></div>
 	</div>
+
+<?php
+	if ($activation == "success") {?>
+
+	<div id="panel-final" class="panel panel-success" style="display: none;">
+		<div class="panel-heading">
+			<?php echo lang("activation_title"); ?>
+		</div>
+		<div class="panel-body"><?php echo lang("activation_information_final"); ?></div>
+	</div>
+
+	<div id="panel-danger" class="panel panel-danger" style="display: none;">
+		<div class="panel-heading">
+			<?php echo lang("activation_title"); ?>
+		</div>
+		<div class="panel-body"><?php echo lang("activation_information_danger"); ?></div>
+	</div>
+	
+	<form id="formPanel" class="form-horizontal" action="do_activate.php" method="post">
+		<fieldset>
+
+			<input id="code" name="code" value="<?php echo $code; ?>" type="text" class="mailForm"/>
+			<input id="mail" name="mail" value="<?php echo $mail; ?>" type="text" class="mailForm" />
+
+			<!-- Form Name -->
+			<legend><?php echo lang("activation_form_legend"); ?></legend>
+
+
+			<!-- Text input-->
+			<div class="form-group has-feedback">
+				<label class="col-md-4 control-label" for="userLoginInput"><?php echo lang("connect_form_loginInput"); ?></label>
+				<div class="col-md-6">
+					<input id="userLoginInput" name="login" value="<?php echo $user["use_login"]; ?>" type="text" 
+						placeholder="" class="form-control input-md">
+					<span id="userLoginStatus"
+						class="glyphicon glyphicon-ok form-control-feedback otbHidden" aria-hidden="true"></span>
+					<p id="userLoginHelp" class="help-block otbHidden"></p>
+				</div>
+			</div>
+
+			<!-- Password input-->
+			<div class="form-group has-feedback">
+				<label class="col-md-4 control-label" for="userPasswordInput"><?php echo lang("connect_form_passwordInput"); ?></label>
+				<div class="col-md-6">
+					<input id="userPasswordInput" name="password" value="" type="password"
+						placeholder="" class="form-control input-md">
+					<span id="passwordStatus" class="glyphicon glyphicon-ok form-control-feedback otbHidden" aria-hidden="true"></span>
+				</div>
+			</div>
+
+
+			<!-- Password input-->
+			<div class="form-group has-feedback">
+				<label class="col-md-4 control-label" for="userConfirmationInput"><?php echo lang("connect_form_confirmationInput"); ?></label>
+				<div class="col-md-6">
+					<input id="userConfirmationInput" name="confirmation" value="" type="password"
+						placeholder="" class="form-control input-md">
+					<span id="confirmationStatus" class="glyphicon glyphicon-ok form-control-feedback otbHidden" aria-hidden="true"></span>
+				</div>
+			</div>
+
+			<!-- Button (Double) -->
+			<div class="form-group">
+				<div class="col-md-12 text-center">
+					<button id="btn-activate" type="submit" class="btn btn-primary" disabled="disabled"><?php echo lang("common_save"); ?></button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+<?php
+	} ?>
 </div>
 
 <div class="lastDiv"></div>

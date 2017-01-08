@@ -58,7 +58,14 @@ class UserBo {
 			$separator = ", ";
 		}
 
+		if (isset($user["use_login"])) {
+			$query .= $separator . "	use_login = :use_login ";
+			$separator = ", ";
+		}
+
 		$query .= "WHERE use_id = :use_id";
+
+//		echo showQuery($query, $user);
 
 		$statement = $this->pdo->prepare($query);
 		try {
@@ -95,9 +102,27 @@ class UserBo {
 		return false;
 	}
 
-	function get($userId) {
-		$args = array("use_id" => $userId);
-		$query = "SELECT * FROM users WHERE use_id = :use_id";
+	function getByFilter($filters = null) {
+		if (!$filters) $filters = array();
+		
+		$args = array();
+		$query = "	SELECT * 
+					FROM users WHERE 1 = 1 ";
+
+		if (isset($filters["use_id"])) {
+			$query .= "	AND use_id = :use_id ";
+			$args["use_id"] = $filters["use_id"];
+		}
+
+		if (isset($filters["use_mail"])) {
+			$query .= "	AND use_mail = :use_mail ";
+			$args["use_mail"] = $filters["use_mail"];
+		}
+
+		if (isset($filters["use_login"])) {
+			$query .= "	AND use_login = :use_login ";
+			$args["use_login"] = $filters["use_login"];
+		}		
 
 		$statement = $this->pdo->prepare($query);
 
@@ -105,68 +130,50 @@ class UserBo {
 
 		try {
 			$statement->execute($args);
-			$users = $statement->fetchAll();
+			$results = $statement->fetchAll();
 
-			if (count($users)) {
-				$user = $users[0];
-
-				return $user;
+			foreach($results as $index => $line) {
+				foreach($line as $field => $value) {
+					if (is_numeric($field)) {
+						unset($results[$index][$field]);
+					}
+				}
 			}
 		}
 		catch(Exception $e){
 			echo 'Erreur de requète : ', $e->getMessage();
 		}
 
+		return $results;
+	}
+
+	function get($userId) {
+		$filters = array("use_id" => $userId);
+		$users = $this->getByFilter($filters);
+		
+		if (count($users)) return $users[0];
+		
 		return null;
 	}
 
 	function getUserByMail($email) {
-		$args = array("use_mail" => $email);
-		$query = "SELECT * FROM users WHERE use_mail = :use_mail";
-
-		$statement = $this->pdo->prepare($query);
-
-		//		echo showQuery($query, $args);
-
-		try {
-			$statement->execute($args);
-			$users = $statement->fetchAll();
-
-			if (count($users)) {
-				$user = $users[0];
-
-				return $user;
-			}
-		}
-		catch(Exception $e){
-			echo 'Erreur de requète : ', $e->getMessage();
-		}
-
+		$filters = array("use_mail" => $email);
+		$users = $this->getByFilter($filters);
+		
+		if (count($users)) return $users[0];
+		
 		return null;
 	}
 
 	function getUserId($user) {
-		$args = array("use_login" => $user);
-		$query = "SELECT * FROM users WHERE use_login = :use_login";
-
-		$statement = $this->pdo->prepare($query);
-
-		//		echo showQuery($query, $args);
-
-		try {
-			$statement->execute($args);
-			$users = $statement->fetchAll();
-
-			if (count($users)) {
-				$user = $users[0];
-
-				return $user["use_id"];
-			}
+		$filters = array("use_login" => $user);
+		$users = $this->getByFilter($filters);
+		
+		if (count($users)) {
+			$user =  $users[0];
+			return $user["use_id"];
 		}
-		catch(Exception $e){
-			echo 'Erreur de requète : ', $e->getMessage();
-		}
-
+		
 		return null;
 	}
 

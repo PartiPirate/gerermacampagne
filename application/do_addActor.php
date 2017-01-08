@@ -29,6 +29,8 @@ function endsWith($haystack, $needle) {
 }
 
 include_once("config/database.php");
+include_once("config/mail.php");
+include_once("language/language.php");
 require_once("engine/bo/AddressBo.php");
 require_once("engine/bo/CampaignBo.php");
 require_once("engine/bo/TaskBo.php");
@@ -49,6 +51,19 @@ $taskBo = TaskBo::newInstance($connection);
 
 $campaign = $campaignBo->getUserCampaign($userId, $campaignId);
 $canAdd = false;
+
+$chars = array();
+for($index = 0; $index < 26; $index++) {
+	if ($index < 10) {
+		$chars[] = $index;
+	}
+	$chars[] = chr(65 + $index);
+	$chars[] = chr(97 + $index);
+}
+
+$loggedUser = $userBo->get($userId);
+
+$nbChars = count($chars);
 
 if (!$campaign) {
 }
@@ -96,11 +111,13 @@ if ($canAdd) {
 
 		$language = SessionUtils::getLanguage($_SESSION);
 
-		$password = "1234";
+		$password = "";
+		for($index = 0; $index < 32; $index++) {
+			$password .= $chars[rand(0, $nbChars - 1)];
+		}
 
 		$hashedPassword = UserBo::computePassword($password);
 		$activationKey = UserBo::computePassword($config["salt"] . time());
-		$url = $config["base_url"] . "activate.php?code=$activationKey&mail=" . urlencode($email);
 
 		$user = array();
 		$user["use_id"] = $userBo->register($login, $email, $hashedPassword, $activationKey, $language);
@@ -119,6 +136,9 @@ if ($canAdd) {
 
 		$user["use_address_id"] = $address["add_id"];
 		$userBo->update($user);
+	}
+	else {
+		$login = $user["use_login"];
 	}
 
 	$telephoneBo->deleteUserPhones($user);
@@ -145,13 +165,46 @@ if ($canAdd) {
 
 	$userBo->addRight($user["use_id"], $right, $campaignId);
 
+	$mail = getMailInstance();
+
+	$mail->setFrom($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
+	$mail->addReplyTo($config["smtp"]["from.address"], $config["smtp"]["from.name"]);
+	$mail->addAddress($email);
+		
+	$listHead = $loggedUser["use_login"];
+//		if (startsWith($listHead, "anonymous")) {
+//			$listHead = $loggedUser["use_login"]
+//		}
+
 	if (!$userExists) {
 		// Send new add user mail
+		$url = $config["base_url"] . "activate.php?code=$activationKey&mail=" . urlencode($email);
+		
+		$mailMessage = lang("register_add_mail_content", false);
+		$mailMessage = str_replace("{activationUrl}", $url, $mailMessage);
+		$mailMessage = str_replace("{login}", $login, $mailMessage);
+		$mailMessage = str_replace("{list_head}", $listHead, $mailMessage);
+		$mailMessage = str_replace("{password}", $password, $mailMessage);
+		
+		$mailSubject = lang("register_add_mail_subject", false);
 	}
 	else {
 		// send attachment user mail
-	}
+		$applicationUrl = $config["base_url"] . "index.php";
 
+		$mailMessage = lang("add_mail_content", false);
+		$mailMessage = str_replace("{applicationUrl}", $applicationUrl, $mailMessage);
+		$mailMessage = str_replace("{login}", $login, $mailMessage);
+		$mailMessage = str_replace("{list_head}", $listHead, $mailMessage);
+
+		$mailSubject = lang("add_mail_subject", false);
+	}
+	
+	$mail->Subject = mb_encode_mimeheader(utf8_decode($mailSubject), "ISO-8859-1");
+	$mail->msgHTML(str_replace("\n", "<br>\n", utf8_decode($mailMessage)));
+	$mail->AltBody = utf8_decode($mailMessage);
+
+	$mail->send();
 
 	$data["ok"] = "ok";
 }
