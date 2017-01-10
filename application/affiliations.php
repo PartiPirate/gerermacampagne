@@ -17,8 +17,12 @@
     along with GererMaCampagne.  If not, see <http://www.gnu.org/licenses/>.
 */
 include_once("header.php");
+require_once("engine/bo/TemplateBo.php");
+
+$templateBo = TemplateBo::newInstance($connection, $config);
 
 $waitingAffiliations = $ppBo->getWaitingAffiliations($administratedParties);
+$templates = $templateBo->getByFilters(array("cte_active" => 1));
 
 foreach($administratedParties as $index => $party) {
 	$administratedParties[$index]["campaigns"] = $campaignBo->getCampaigns(array("partyId" => $party["ppa_id"]));
@@ -36,6 +40,23 @@ foreach($administratedParties as $index => $party) {
 	</div>
 
 	<?php 	if ($user) {?>
+
+<div class="clearfix"></div>
+
+<br />
+
+<div class="col-md-12 text-center" id="filterDiv">
+	<div id="filterButtons" class="btn-group" role="group" aria-label="...">
+		<button value="no" type="button" class="btn btn-default active"><?php echo lang("tasks_filter_no"); ?></button>
+<?php	foreach($templates as $template) { ?>		
+		<button value="<?php echo $template["cte_id"]; ?>" type="button" class="btn btn-default"><?php echo $template["cte_label"]; ?></button>
+<?php	}	?>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<br />
 
 	<?php 		if (count($waitingAffiliations)) {?>
 	<div class="col-md-12">
@@ -55,7 +76,7 @@ foreach($administratedParties as $index => $party) {
 				</thead>
 				<tbody>
 <?php 	foreach($waitingAffiliations as $affiliation) {	?>
-					<tr aria-id="<?php echo $affiliation["aff_id"]; ?>">
+					<tr aria-id="<?php echo $affiliation["aff_id"]; ?>" data-template-id="<?php echo $affiliation["cte_id"]; ?>">
 						<td class="vertical-middle"><?php echo $affiliation["ppa_name"]; ?></td>
 						<td class="vertical-middle"><?php echo $affiliation["cam_name"]; ?></td>
 						<td class="vertical-middle"><?php echo $affiliation["cam_electoral_district"]; ?></td>
@@ -85,7 +106,7 @@ foreach($administratedParties as $index => $party) {
 
 		?>
 
-		<div class="col-md-6">
+		<div class="col-md-6" data-template-id="<?php echo $partyCampaign["cte_id"]; ?>">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><?php echo $partyCampaign["cam_name"]; ?></h3>

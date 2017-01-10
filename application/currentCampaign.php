@@ -95,6 +95,14 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 						<p class="form-control-static"><?php echo $campaign["cam_name"]; ?></p>
 					</div>
 				</div>
+				<?php	if ($campaign["cte_label"]) { ?>
+				<div class="form-group has-feedback input-sm margin-bottom-0">
+					<label class="col-md-4 control-label" for="nameInput"><?php echo lang("campaign_property_template_label"); ?></label>
+					<div class="col-md-8">
+						<p class="form-control-static"><?php echo $campaign["cte_label"]; ?></p>
+					</div>
+				</div>
+				<?php	} ?>
 				<div class="form-group has-feedback input-sm margin-bottom-0">
 					<label class="col-md-4 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_electoralDistrict"); ?></label>
 					<div class="col-md-8">

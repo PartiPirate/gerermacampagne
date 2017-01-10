@@ -1,3 +1,5 @@
+/* global $ */
+
 function removeAffiliation(affiliationId) {
 	var table = $("#waitingAffiliationsTable");
 	table.find("tr[aria-id="+affiliationId+"]").remove();
@@ -34,4 +36,18 @@ $(function() {
 			removeAffiliation(affiliationId);
 		}, "json");
 	});
+	
+	$("#filterButtons button").click(function(e) {
+		$("#filterButtons button").removeClass("active");
+		$(this).addClass("active");
+		var filterBy = $(this).val();
+		
+		if (filterBy == "no") {
+		    $("*[data-template-id]").show();
+		}
+		else {
+		    $("*[data-template-id]").hide();
+		    $("*[data-template-id="+filterBy+"]").show();
+		}
+	});  	
 });

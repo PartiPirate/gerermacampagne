@@ -148,6 +148,7 @@ class PoliticalPartyBo {
 
 		$query .= "		FROM campaigns
 						JOIN political_parties ON cam_political_party_id = ppa_id
+						LEFT JOIN campaign_templates ON cte_id = cam_campaign_template_id
 						WHERE
 							 cam_political_party_date = '0000-00-00' ";
 

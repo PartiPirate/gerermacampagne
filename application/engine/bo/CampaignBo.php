@@ -234,6 +234,14 @@ class CampaignBo {
 			$statement->execute($args);
 			$campaigns = $statement->fetchAll();
 
+			foreach($campaigns as $index => $line) {
+				foreach($line as $field => $value) {
+					if (is_numeric($field)) {
+						unset($campaigns[$index][$field]);
+					}
+				}
+			}
+
 // 			print_r($campaigns);
 // 			echo "<br/>\n";
 		}

@@ -103,6 +103,7 @@ $lang["campaign_property_party"] = "Affiliation";
 $lang["campaign_property_party_placeholder"] = "Choisissez votre parti politique";
 $lang["campaign_property_firstTask"] = "Tâche en cours";
 $lang["campaign_property_candidates"] = "Candidat(s)";
+$lang["campaign_property_template_label"] = "Type";
 
 $lang["party_property_name"] = "Nom";
 $lang["party_property_party"] = "Parti";
