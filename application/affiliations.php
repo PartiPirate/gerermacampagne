@@ -95,6 +95,18 @@ foreach($administratedParties as $index => $party) {
 	<?php 		}?>
 
 
+
+<div class="col-md-12 text-center" id="modeDiv">
+	<div id="modeButtons" class="btn-group" role="group" aria-label="...">
+		<button value="mode-text" type="button" class="btn btn-default active"><?php echo lang("affiliation_mode_text"); ?></button>
+		<button value="mode-graphic" type="button" class="btn btn-default"><?php echo lang("affiliation_mode_graphic"); ?></button>
+	</div>
+</div>
+
+<div class="clearfix"></div>
+
+<br />
+
 	<?php 	foreach($administratedParties as $administratedParty) {?>
 	<?php 		foreach($administratedParty["campaigns"] as $partyCampaign) {
 
@@ -106,7 +118,7 @@ foreach($administratedParties as $index => $party) {
 
 		?>
 
-		<div class="col-md-6" data-template-id="<?php echo $partyCampaign["cte_id"]; ?>">
+		<div class="col-md-6 campaign mode-text" data-template-id="<?php echo $partyCampaign["cte_id"]; ?>" data-campaign-id="<?php echo $partyCampaign["cam_id"]; ?>">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><?php echo $partyCampaign["cam_name"]; ?></h3>
@@ -115,28 +127,28 @@ foreach($administratedParties as $index => $party) {
 				<form class="form-horizontal">
 					<fieldset>
 					
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
 							<label class="col-md-4 control-label" for="campaignTemplateInput"><?php echo lang("campaign_property_template"); ?></label>
 							<div class="col-md-8">
 								<p class="form-control-static"><?php echo $partyCampaign["cte_label"]; ?></p>
 							</div>
 						</div>
 					
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6 mode-text">
 							<label class="col-md-6 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_electoralDistrict"); ?></label>
 							<div class="col-md-6">
 								<p class="form-control-static"><?php echo $partyCampaign["cam_electoral_district"]; ?></p>
 							</div>
 						</div>
 
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6 mode-text">
 							<label class="col-md-6 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_party"); ?></label>
 							<div class="col-md-6">
 								<p class="form-control-static"><?php echo $partyCampaign["ppa_name"]; ?></p>
 							</div>
 						</div>
 
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6 mode-text">
 							<label class="col-md-6 control-label" for="startDateInput"><?php echo lang("campaign_property_startDate"); ?></label>
 							<div class="col-md-6">
 								<p class="form-control-static"><?php 
@@ -149,7 +161,7 @@ foreach($administratedParties as $index => $party) {
 							</div>
 						</div>
 						<?php 	if ($partyCampaign["cam_finish_date"] != "0000-00-00") {?>
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6 mode-text">
 							<label class="col-md-6 control-label" for="finishDateInput"><?php echo lang("campaign_property_finishDate"); ?></label>
 							<div class="col-md-6">
 								<p class="form-control-static"><?php 
@@ -172,7 +184,7 @@ foreach($administratedParties as $index => $party) {
 									$candidates .= $actor["add_entity"];
 									$separator = ", ";
 								}?>
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
 							<label class="col-md-3 control-label" for="finishDateInput"><?php echo lang("campaign_property_candidates"); ?></label>
 							<div class="col-md-9">
 								<p class="form-control-static"><?php echo $candidates; ?></p>
@@ -180,22 +192,39 @@ foreach($administratedParties as $index => $party) {
 						</div>
 
 						<?php 	$task = null;
+								$dones = 0;
 
 								foreach($partyCampaign["tasks"] as $pcTask) {
-									if ($pcTask["tas_status"] == "inProgress") {
+									if ($task == null && $pcTask["tas_status"] == "inProgress") {
 										$task = $pcTask;
-										break;
 									}
+									else if ($pcTask["tas_status"] == "done") {
+										$dones++;
+									}	
 								}
 
 								if ($task) {?>
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12">
-							<label class="col-md-3 control-label" for="finishDateInput"><?php echo lang("campaign_property_firstTask"); ?></label>
-							<div class="col-md-9">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
+							<label class="col-md-4 control-label" for="finishDateInput"><?php echo lang("campaign_property_firstTask"); ?></label>
+							<div class="col-md-8">
 								<p class="form-control-static"><?php echo lang($task["tas_label"]); ?></p>
 							</div>
 						</div>
-						<?php 	}?>
+								<?php 	}?>
+								
+						<div class="margin-bottom-0 input-sm col-md-12 mode-graphic">
+							<label class="col-md-4 control-label" style="margin-top: -5px;"><?php echo $partyCampaign["cam_name"]; ?></label>
+							<div class="col-md-8 progress" style="padding: 0;" title="<?php echo $dones; ?> / <?php echo count($partyCampaign["tasks"]); ?>">
+								<?php 
+									$width = $dones / count($partyCampaign["tasks"]) * 100;
+									$width = round($width);
+								?>
+								<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $width; ?>%;">
+									<?php echo $dones; ?> / <?php echo count($partyCampaign["tasks"]); ?>
+								</div>
+							</div>
+						</div>
+						
 
 					</fieldset>
 				</form>

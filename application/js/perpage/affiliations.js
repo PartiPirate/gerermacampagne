@@ -40,6 +40,7 @@ $(function() {
 	$("#filterButtons button").click(function(e) {
 		$("#filterButtons button").removeClass("active");
 		$(this).addClass("active");
+
 		var filterBy = $(this).val();
 		
 		if (filterBy == "no") {
@@ -49,5 +50,14 @@ $(function() {
 		    $("*[data-template-id]").hide();
 		    $("*[data-template-id="+filterBy+"]").show();
 		}
+	});  	
+	
+	$("#modeButtons button").click(function(e) {
+		$("#modeButtons button").removeClass("active");
+		$(this).addClass("active");
+
+		var modeBy = $(this).val();
+
+		$(".campaign").removeClass("mode-text").removeClass("mode-graphic").addClass(modeBy);
 	});  	
 });

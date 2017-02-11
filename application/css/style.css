@@ -296,3 +296,20 @@ a.skip-main:focus, a.skip-main:active {
     font-size:1.2em;
     z-index:999;
 }
+
+.mode-text .mode-graphic {
+    display: none;
+}
+
+.mode-graphic .mode-text, .mode-graphic .panel-heading {
+    display: none;
+}
+
+.campaign.mode-graphic {
+    width: 100% !important;
+}
+
+.campaign.mode-graphic .panel {
+    margin-bottom: 2px !important;
+}
+

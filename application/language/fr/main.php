@@ -183,6 +183,9 @@ $lang["affiliations_waiting_title"] = "Affiliations en attente";
 $lang["affiliations_candidates"] = "Tête de liste / Candidats";
 $lang["affiliations_actions"] = "Actions";
 
+$lang["affiliation_mode_text"] = "Mode texte";
+$lang["affiliation_mode_graphic"] = "Mode graphique";
+
 $lang["votingPaper_guide"] = "Vous pouvez ici créer votre bulletin de vote";
 $lang["votingPaper_form_legend"] = "Créez votre bulletin";
 
