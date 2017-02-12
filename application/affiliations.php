@@ -118,7 +118,12 @@ foreach($administratedParties as $index => $party) {
 
 		?>
 
-		<div class="col-md-6 campaign mode-text" data-template-id="<?php echo $partyCampaign["cte_id"]; ?>" data-campaign-id="<?php echo $partyCampaign["cam_id"]; ?>">
+		<div class="col-md-6 campaign mode-text" 
+			data-template-id="<?php echo $partyCampaign["cte_id"]; ?>" 
+			data-campaign-id="<?php echo $partyCampaign["cam_id"]; ?>"
+			data-party-id="<?php echo $administratedParty["ppa_id"]; ?>"
+			data-reject-code="<?php echo $partyCampaign["cam_reject_code"]; ?>"
+		>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><?php echo $partyCampaign["cam_name"]; ?></h3>
@@ -229,6 +234,9 @@ foreach($administratedParties as $index => $party) {
 					</fieldset>
 				</form>
 
+				<div class="panel-footer text-right">
+					<button type="button" class="btn btn-danger btn-xs btn-reject"><?php echo lang("affiliation_button_remove"); ?> <span class="glyphicon glyphicon-remove"></span></button>
+				</div>
 			</div>
 		</div>
 

@@ -21,6 +21,10 @@ function removeAffiliation(affiliationId) {
 
 }
 
+function removeCampaign(campaignId) {
+	$(".campaign[data-campaign-id="+campaignId+"]").remove();
+}
+
 $(function() {
 	$(".acceptButton").click(function() {
 		var affiliationId = $(this).parents("tr").attr("aria-id");
@@ -34,6 +38,15 @@ $(function() {
 
 		$.post("do_refuseAffiliation.php", {affiliationId : affiliationId}, function() {
 			removeAffiliation(affiliationId);
+		}, "json");
+	});
+	$(".btn-reject").click(function() {
+		var campaign = $(this).parents(".campaign");
+		var campaignId = campaign.data("campaign-id");
+		var rejectCode = campaign.data("reject-code");
+	
+		$.post("do_rejectAffiliation.php", {campaignId : campaignId, rejectCode: rejectCode}, function() {
+			removeCampaign(campaignId);
 		}, "json");
 	});
 	

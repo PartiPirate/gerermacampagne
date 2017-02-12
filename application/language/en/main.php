@@ -176,6 +176,7 @@ $lang["affiliations_actions"] = "Actions";
 
 $lang["affiliation_mode_text"] = "Mode texte";
 $lang["affiliation_mode_graphic"] = "Mode graphique";
+$lang["affiliation_button_remove"] = "Annuler l'affiliation";
 
 $lang["votingPaper_guide"] = "Vous pouvez ici créer votre bulletin de vote";
 $lang["votingPaper_form_legend"] = "Create your own voting paper";

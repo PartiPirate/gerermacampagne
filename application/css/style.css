@@ -301,7 +301,7 @@ a.skip-main:focus, a.skip-main:active {
     display: none;
 }
 
-.mode-graphic .mode-text, .mode-graphic .panel-heading {
+.mode-graphic .mode-text, .mode-graphic .panel-heading, .mode-graphic .panel-footer {
     display: none;
 }
 

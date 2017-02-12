@@ -194,6 +194,16 @@ class CampaignBo {
 		return null;
 	}
 
+	function getCampaign($campaignId) {
+		$campaigns = $this->getCampaigns(array("campaignId" => $campaignId, "withRights" => true));
+
+		if (count($campaigns)) {
+			return $campaigns[0];
+		}
+
+		return null;
+	}
+
 	function getCampaigns($filters = null) {
 		$campaigns = array();
 		$args = array();
@@ -240,6 +250,18 @@ class CampaignBo {
 						unset($campaigns[$index][$field]);
 					}
 				}
+				
+				$reject_code = "";
+				
+				$reject_code .= $campaigns[$index]["cam_id"];
+				$reject_code .= "-";
+				$reject_code .= $campaigns[$index]["cam_political_party_id"];
+				
+				// todo add config salt
+				
+				$reject_code = md5($reject_code);
+
+				$campaigns[$index]["cam_reject_code"] = $reject_code;
 			}
 
 // 			print_r($campaigns);
