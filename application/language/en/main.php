@@ -123,6 +123,7 @@ $lang["books_list_ballot_in"] = "R39 Provision";
 $lang["books_list_ballot_out"] = "R39";
 $lang["books_list_campaign_in"] = "CdC Entrées";
 $lang["books_list_campaign_out"] = "CdC Sorties";
+$lang["books_list_code"] = "Code d'imputation";
 
 $lang["mypreferences_guide"] = "Change my preferences.";
 $lang["mypreferences_form_legend"] = "Configuration of your access";

@@ -106,6 +106,32 @@
 							</div>
 						</div>
 
+						<div class="form-group has-feedback" id="invoiceCodeDiv">
+							<label class="col-md-3 control-label" for="code">Imputation</label>
+							<div class="col-md-8">
+								<select id="code" name="code" class="form-control">
+									<option value="6051"><?php echo lang("code_6051"); ?></option>
+									<option value="6060"><?php echo lang("code_6060"); ?></option>
+									<option value="6132"><?php echo lang("code_6132"); ?></option>
+									<option value="6400"><?php echo lang("code_6400"); ?></option>
+									<option value="6210"><?php echo lang("code_6210"); ?></option>
+									<option value="6211"><?php echo lang("code_6211"); ?></option>
+									<option value="6226"><?php echo lang("code_6226"); ?></option>
+									<option value="6229"><?php echo lang("code_6229"); ?></option>
+									<option value="6230"><?php echo lang("code_6230"); ?></option>
+									<option value="6237"><?php echo lang("code_6237"); ?></option>
+									<option value="6235"><?php echo lang("code_6235"); ?></option>
+									<option value="6240"><?php echo lang("code_6240"); ?></option>
+									<option value="6254"><?php echo lang("code_6254"); ?></option>
+									<option value="6257"><?php echo lang("code_6257"); ?></option>
+									<option value="6260"><?php echo lang("code_6260"); ?></option>
+									<option value="6262"><?php echo lang("code_6262"); ?></option>
+									<option value="6280"><?php echo lang("code_6280"); ?></option>
+									<option value="6600"><?php echo lang("code_6600"); ?></option>
+								</select>
+							</div>
+						</div>
+
 						<div class="form-group has-feedback">
 							<label class="col-md-3 control-label" for="checkFile">Devis</label>
 							<div class="col-md-8">

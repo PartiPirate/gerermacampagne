@@ -1,5 +1,5 @@
 <?php /*
-	Copyright 2016 Cédric Levieux, Parti Pirate
+	Copyright 2016-2017 Cédric Levieux, Parti Pirate
 
 	This file is part of GererMaCampagne.
 
@@ -75,10 +75,10 @@ class BookInlineBo {
 	function addInline(&$inline) {
 		$query = "	INSERT INTO book_inlines
 						(bin_campaign_id, bin_label, bin_amount,
-						bin_book, bin_column, bin_type, bin_transaction_date)
+						bin_book, bin_column, bin_type, bin_transaction_date, bin_code)
 					VALUES
 						(:bin_campaign_id, :bin_label, :bin_amount,
-						:bin_book, :bin_column, :bin_type, :bin_transaction_date)	";
+						:bin_book, :bin_column, :bin_type, :bin_transaction_date, :bin_code)	";
 
 		$statement = $this->pdo->prepare($query);
 		//		echo showQuery($query, $args);
@@ -161,6 +161,7 @@ class BookInlineBo {
 				$inlines[$line["bin_id"]]["bin_book"] = $line["bin_book"];
 				$inlines[$line["bin_id"]]["bin_column"] = $line["bin_column"];
 				$inlines[$line["bin_id"]]["bin_type"] = $line["bin_type"];
+				$inlines[$line["bin_id"]]["bin_code"] = $line["bin_code"];
 				$inlines[$line["bin_id"]]["bin_transaction_date"] = $line["bin_transaction_date"];
 
 				if (!isset($inlines[$line["bin_id"]]["documents"])) {

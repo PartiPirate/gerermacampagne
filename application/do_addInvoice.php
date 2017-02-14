@@ -73,7 +73,7 @@ if ($invoiceSource == "fromQuotation") {
 
 		$inline["bin_amount"] = $amount;
 
-		if (isset($_REQUEST["inlineDate"])) {
+		if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 			$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];
 		}
 		else {
@@ -106,8 +106,9 @@ else {
 	$inline["bin_book"] = "campaign";
 	$inline["bin_column"] = "output";
 	$inline["bin_type"] = "invoice";
+	$inline["bin_code"] = $_REQUEST["code"];
 
-	if (isset($_REQUEST["inlineDate"])) {
+	if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 		$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];
 	}
 	else {

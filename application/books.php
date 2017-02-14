@@ -161,6 +161,7 @@ if ($campaign) {
 				<tr>
 					<th><?php echo lang("books_list_name"); ?></th>
 					<th style="width: 140px;"><?php echo lang("books_list_date"); ?></th>
+					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_code"); ?></th>
 					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_ballot_in"); ?></th>
 					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_ballot_out"); ?></th>
 					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_campaign_in"); ?></th>
@@ -178,6 +179,16 @@ if ($campaign) {
 						<?php }?>
 					</td>
 					<td><?php 	echo $inline["bin_transaction_date"]; ?></td>
+					<td class="text-right"><acronym title="<?php
+						if (isLanguageKey("code_" . $inline["bin_code"])) {
+							$title = lang("code_" . $inline["bin_code"]);
+						}
+						else {
+							$title = $inline["bin_code"];
+						}
+						
+						echo $title;
+					?>"><?php 	echo $inline["bin_code"]; ?></acronym></td>
 					<td class="text-right"><?php if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "input") { echo number_format($inline["bin_amount"], 2) . "&euro;"; }?></td>
 					<td class="text-right"><?php if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "output") { echo number_format($inline["bin_amount"], 2) . "&euro;"; }?></td>
 					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "input") { echo number_format($inline["bin_amount"], 2) . "&euro;"; }?></td>
@@ -189,12 +200,14 @@ if ($campaign) {
 				<tr>
 					<td></td>
 					<td></td>
+					<td></td>
 					<td class="text-right"><?php echo number_format($bin, 2); ?>&euro;</td>
 					<td class="text-right"><?php echo number_format($bout, 2); ?>&euro;</td>
 					<td class="text-right"><?php echo number_format($cin, 2); ?>&euro;</td>
 					<td class="text-right"><?php echo number_format($cout, 2); ?>&euro;</td>
 				</tr>
 				<tr>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td class="text-center <?php echo ($bdiff < 0) ? "text-danger" : "text-success"; ?>" colspan="2"><strong><?php echo number_format($bdiff, 2); ?>&euro;</strong></td>

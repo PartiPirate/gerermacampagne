@@ -78,12 +78,13 @@ if (!endsWith($documentPath, "/")) {
 $inline = array();
 $inline["bin_campaign_id"] = $campaignId;
 $inline["bin_label"] = $_REQUEST["label"];
+$inline["bin_code"] = $_REQUEST["code"];
 $inline["bin_amount"] = $amount;
 $inline["bin_book"] = "campaign";
 $inline["bin_column"] = "output";
 $inline["bin_type"] = "invoice";
 
-if (isset($_REQUEST["inlineDate"])) {
+if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 	$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];
 }
 else {

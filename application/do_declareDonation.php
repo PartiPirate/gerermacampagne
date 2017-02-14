@@ -82,8 +82,9 @@ $inline["bin_amount"] = $amount;
 $inline["bin_book"] = "campaign";
 $inline["bin_column"] = "input";
 $inline["bin_type"] = "donation";
+$inline["bin_code"] = "";
 
-if (isset($_REQUEST["inlineDate"])) {
+if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 	$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];
 }
 else {
