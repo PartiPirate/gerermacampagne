@@ -178,7 +178,7 @@ if ($canAdd) {
 
 	if (!$userExists) {
 		// Send new add user mail
-		$url = $config["base_url"] . "activate.php?code=$activationKey&mail=" . urlencode($email);
+		$url = $config["server"]["base"] . "activate.php?code=$activationKey&mail=" . urlencode($email);
 		
 		$mailMessage = lang("register_add_mail_content", false);
 		$mailMessage = str_replace("{activationUrl}", $url, $mailMessage);
@@ -190,7 +190,7 @@ if ($canAdd) {
 	}
 	else {
 		// send attachment user mail
-		$applicationUrl = $config["base_url"] . "index.php";
+		$applicationUrl = $config["server"]["base"] . "index.php";
 
 		$mailMessage = lang("add_mail_content", false);
 		$mailMessage = str_replace("{applicationUrl}", $applicationUrl, $mailMessage);

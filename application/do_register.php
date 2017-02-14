@@ -58,7 +58,7 @@ if ($password != $confirmation) {
 
 $hashedPassword = UserBo::computePassword($password);
 $activationKey = UserBo::computePassword($config["salt"] . time());
-$url = $config["base_url"] . "activate.php?code=$activationKey&mail=" . urlencode($email);
+$url = $config["server"]["base"] . "activate.php?code=$activationKey&mail=" . urlencode($email);
 
 $mail = getMailInstance();
 

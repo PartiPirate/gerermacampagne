@@ -46,10 +46,6 @@ if(!isset(\$config)) {
 \$config[\"database\"][\"database\"] = \"" . $_REQUEST["database_database_input"] . "\";
 \$config[\"database\"][\"prefix\"] = \"\";
 
-\$config[\"memcached\"] = array();
-\$config[\"memcached\"][\"host\"] = \"" . $_REQUEST["memcached_host_input"] . "\";
-\$config[\"memcached\"][\"port\"] = " . $_REQUEST["memcached_port_input"] . ";
-
 \$config[\"server\"] = array();
 \$config[\"server\"][\"base\"] = \"" . $_REQUEST["server_base_input"] . "\";
 // The server line, ex : dev, beta - Leave it empty for production
@@ -75,6 +71,18 @@ if(!isset(\$config)) {
 
 ?>";
 
+// salt.php
+$saltDotPhp = "<?php
+if(!isset(\$config)) {
+	\$config = array();
+}
+
+\$config[\"salt\"] = \"" . $_REQUEST["salt_input"] . "\";
+\$config[\"default_language\"] = \"" . $_REQUEST["default_language_input"] . "\";
+\$config[\"document_directory\"] = \"" . $_REQUEST["document_directory_input"] . "\";
+
+?>";
+
 if (file_exists("config/config.php")) {
 	if (file_exists("config/config.php~")) {
 		unlink("config/config.php~");
@@ -90,6 +98,14 @@ if (file_exists("config/mail.config.php")) {
 	rename("config/mail.config.php", "config/mail.config.php~");
 }
 file_put_contents("config/mail.config.php", $mailConfigDotPhp);
+
+if (file_exists("config/salt.php")) {
+	if (file_exists("config/salt.php~")) {
+		unlink("config/salt.php~");
+	}
+	rename("config/salt.php", "config/salt.php~");
+}
+file_put_contents("config/salt.php", $saltDotPhp);
 
 echo json_encode($data, JSON_NUMERIC_CHECK);
 ?>

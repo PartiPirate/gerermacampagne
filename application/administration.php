@@ -70,6 +70,31 @@ include_once("header.php");
 					</div>
 				</div>
 
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="salt_input"><?php echo lang("administration_salt"); ?></label>
+					<div class="col-md-10">
+						<input id="salt_input" name="salt_input" type="text" value="<?php echo $config["salt"]; ?>" placeholder="placeholder" class="form-control input-md"> 
+						<!-- <span class="help-block">help</span> -->
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="default_language_input"><?php echo lang("administration_default_language"); ?></label>
+					<div class="col-md-4">
+						<select id="default_language_input" name="default_language_input" class="form-control">
+							<option value="fr" <?php if ("fr" == $config["default_language"]) echo "selected"; ?>><?php echo lang("language_fr"); ?></option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="salt_input"><?php echo lang("administration_document_directory"); ?></label>
+					<div class="col-md-10">
+						<input id="document_directory_input" name="document_directory_input" type="text" value="<?php echo $config["document_directory"]; ?>" placeholder="placeholder" class="form-control input-md"> 
+						<!-- <span class="help-block">help</span> -->
+					</div>
+				</div>
+
 			</div>
 		</div>
 	
@@ -119,7 +144,7 @@ include_once("header.php");
 
 			</div>
 		</div>
-	
+<!--	
 		<div id="memcached-panel" class="panel panel-default">
 			<div class="panel-heading">
 				<a data-toggle="collapse" data-target="#memcached-panel-body" class="collapsed" href="#memcached-panel-body"><?php echo lang("administration_memcached"); ?></a>
@@ -130,18 +155,16 @@ include_once("header.php");
 					<label class="col-md-2 control-label" for="memcached_host_input"><?php echo lang("administration_memcached_host"); ?></label>
 					<div class="col-md-4">
 						<input id="memcached_host_input" name="memcached_host_input" type="text" value="<?php echo $config["memcached"]["host"] ?>" placeholder="placeholder" class="form-control input-md"> 
-						<!-- <span class="help-block">help</span> -->
 					</div>
 					<label class="col-md-2 control-label" for="memcached_port_input"><?php echo lang("administration_memcached_port"); ?></label>
 					<div class="col-md-4">
 						<input id="memcached_port_input" name="memcached_port_input" type="text" value="<?php echo $config["memcached"]["port"] ?>" placeholder="placeholder" class="form-control input-md"> 
-						<!-- <span class="help-block">help</span> -->
 					</div>
 				</div>
 			
 			</div>
 		</div>
-	
+-->	
 		<div id="mail-panel" class="panel panel-default">
 			<div class="panel-heading">
 				<a data-toggle="collapse" data-target="#mail-panel-body" class="collapsed" href="#mail-panel-body"><?php echo lang("administration_mail"); ?></a>
