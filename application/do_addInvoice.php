@@ -72,6 +72,7 @@ if ($invoiceSource == "fromQuotation") {
 	if (count($inlines)) {
 
 		$inline["bin_amount"] = $amount;
+		$inline["bin_type"] = "invoice";
 
 		if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 			$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];

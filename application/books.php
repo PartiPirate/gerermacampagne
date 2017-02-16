@@ -54,13 +54,17 @@ if ($campaign) {
 			$bin += $inline["bin_amount"];
 		}
 		else if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "output") {
-			$bout += $inline["bin_amount"];
+			if ($inline["bin_type"] == "invoice") {
+				$bout += $inline["bin_amount"];
+			}
 		}
 		else if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "input") {
 			$cin += $inline["bin_amount"];
 		}
 		else if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "output") {
-			$cout += $inline["bin_amount"];
+			if ($inline["bin_type"] == "invoice") {
+				$cout += $inline["bin_amount"];
+			}		
 		}
 	}
 
@@ -189,10 +193,21 @@ if ($campaign) {
 						
 						echo $title;
 					?>"><?php 	echo $inline["bin_code"]; ?></acronym></td>
-					<td class="text-right"><?php if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "input") { echo number_format($inline["bin_amount"], 2) . "&euro;"; }?></td>
-					<td class="text-right"><?php if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "output") { echo number_format($inline["bin_amount"], 2) . "&euro;"; }?></td>
-					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "input") { echo number_format($inline["bin_amount"], 2) . "&euro;"; }?></td>
-					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "output") { echo number_format($inline["bin_amount"], 2) . "&euro;"; }?></td>
+					
+					<?php 
+					
+						$formatedAmount = number_format($inline["bin_amount"], 2) . "&euro;";
+						
+						if ($inline["bin_type"] == "quotation") {
+							$formatedAmount = "(" . $formatedAmount . ")";
+						}
+					
+					?>
+					
+					<td class="text-right"><?php if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "input") { echo $formatedAmount; }?></td>
+					<td class="text-right"><?php if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "output") { echo $formatedAmount; }?></td>
+					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "input") { echo $formatedAmount; }?></td>
+					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "output") { echo $formatedAmount; }?></td>
 				</tr>
 			<?php 	}?>
 			</tbody>
