@@ -1,3 +1,6 @@
+/* global $ */
+/* global userLanguage */
+
 function progressHandlingFunction(e) {
     if (e.lengthComputable){
         $('progress').attr({value:e.loaded, max:e.total});
@@ -141,4 +144,51 @@ $(function() {
 	        processData: false
 	    });
 	});
+
+	
+	$("#inline-table").on("click", ".inline .btn-remove-inline", function(event) {
+		var inlineId = $(this).data("inline-id");
+		var inline = $("#inline-table .inline[data-id=" + inlineId + "]");
+		var label = inline.find(".inline-label").text();
+		var inlineCode = inline.data("inline-code");
+		
+		$("#removeInlineDiv .inline-label").text(label);
+		$("#removeInlineDiv input[name=inlineId]").val(inlineId);
+		$("#removeInlineDiv input[name=inlineCode]").val(inlineCode);
+		$("#removeInlineDiv").modal("show");
+	});
+
+	$("#removeInlineDiv #closeButton").click(function(event) {
+    	$("#removeInlineDiv").modal('hide');
+	});
+
+	$("#removeInlineDiv #removeInlineButton").click(function(event) {
+    	$("#removeInlineDiv #removeInlineButton").attr("disabled", "disabled");
+
+	    var formData = new FormData($('#removeInlineForm')[0]);
+	    $.ajax({
+	        url: 'do_removeInline.php',  //Server script to process data
+	        type: 'POST',
+	        xhr: function() {  // Custom XMLHttpRequest
+	            var myXhr = $.ajaxSettings.xhr();
+	            if(myXhr.upload){ // Check if upload property exists
+	                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
+	            }
+	            return myXhr;
+	        },
+	        //Ajax events
+	        success: function(data) {
+        		data = JSON.parse(data);
+	        	$("#removeInlineDiv").modal('hide');
+	        	if (data.ok) {
+	        		window.location.reload(true);
+	        	}
+	        },
+	        data: formData,
+	        cache: false,
+	        contentType: false,
+	        processData: false
+	    });
+	});
+
 });

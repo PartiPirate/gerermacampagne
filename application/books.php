@@ -160,7 +160,7 @@ if ($campaign) {
 		<div class="panel-body"><?php echo lang("books_list_none"); ?></div>
 		<?php 	} else { ?>
 
-		<table class="table" aria-do-not-paginate="true">
+		<table class="table" id="inline-table" aria-do-not-paginate="true">
 			<thead>
 				<tr>
 					<th><?php echo lang("books_list_name"); ?></th>
@@ -170,12 +170,14 @@ if ($campaign) {
 					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_ballot_out"); ?></th>
 					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_campaign_in"); ?></th>
 					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_campaign_out"); ?></th>
+					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_actions"); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 			<?php 	foreach($inlines as $inline) { ?>
-				<tr>
-					<td><?php 	echo $inline["bin_label"]; ?>
+				<tr class="inline" data-id="<?php echo $inline["bin_id"]; ?>" data-inline-code="<?php echo $inline["bin_secure_code"]; ?>">
+					<td>
+						<span class="inline-label"><?php echo $inline["bin_label"]; ?></span>
 
 						<?php foreach($inline["documents"] as $document) {?>
 							<span class="badge pull-right"><?php echo lang("document_type_" . $document["ido_type"]); ?></span>
@@ -208,6 +210,10 @@ if ($campaign) {
 					<td class="text-right"><?php if ($inline["bin_book"] == "ballot" && $inline["bin_column"] == "output") { echo $formatedAmount; }?></td>
 					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "input") { echo $formatedAmount; }?></td>
 					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "output") { echo $formatedAmount; }?></td>
+					<td class="text-center">
+						<button class="btn btn-danger btn-xs btn-remove-inline" 
+							data-inline-id="<?php echo $inline["bin_id"]; ?>" ><span class="glyphicon glyphicon-remove"></span> <?php echo lang("books_actions_delete"); ?></button>
+					</td>
 				</tr>
 			<?php 	}?>
 			</tbody>
@@ -220,6 +226,7 @@ if ($campaign) {
 					<td class="text-right"><?php echo number_format($bout, 2); ?>&euro;</td>
 					<td class="text-right"><?php echo number_format($cin, 2); ?>&euro;</td>
 					<td class="text-right"><?php echo number_format($cout, 2); ?>&euro;</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -227,6 +234,7 @@ if ($campaign) {
 					<td></td>
 					<td class="text-center <?php echo ($bdiff < 0) ? "text-danger" : "text-success"; ?>" colspan="2"><strong><?php echo number_format($bdiff, 2); ?>&euro;</strong></td>
 					<td class="text-center <?php echo ($cdiff < 0) ? "text-danger" : "text-success"; ?>" colspan="2"><strong><?php echo number_format($cdiff, 2); ?>&euro;</strong></td>
+					<td></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -238,6 +246,7 @@ if ($campaign) {
 	</div>
 
 	<?php
+				include("dialogs/removeInline.php");
 				include("dialogs/declareDonation.php");
 				include("dialogs/addQuotation.php");
 				include("dialogs/addInvoice.php");

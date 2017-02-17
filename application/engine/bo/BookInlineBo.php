@@ -128,7 +128,17 @@ class BookInlineBo {
 					LEFT JOIN inline_documents ON bin_id = ido_book_inline_id
 					LEFT JOIN documents ON doc_id = ido_document_id
 					WHERE
-						bin_campaign_id = :bin_campaign_id	";
+						1 = 1 
+					AND	bin_campaign_id = :bin_campaign_id	";
+
+		if ((! isset($filters["with_deleted"])) || $filters["with_deleted"] == false) {
+			$query .= "	AND bin_deleted = 0 ";
+		}
+
+		if (isset($filters["bin_id"])) {
+			$query .= " AND bin_id = :bin_id ";
+			$args["bin_id"] = $filters["bin_id"];
+		}
 
 		if (isset($filters["sorts"])) {
 			$orderSeparator = "	ORDER BY ";
@@ -140,10 +150,7 @@ class BookInlineBo {
 			}
 		}
 
-		if (isset($filters["bin_id"])) {
-			$query .= " AND bin_id = :bin_id ";
-			$args["bin_id"] = $filters["bin_id"];
-		}
+//		echo showQuery($query, $args);
 
 		$statement = $this->pdo->prepare($query);
 
@@ -163,6 +170,12 @@ class BookInlineBo {
 				$inlines[$line["bin_id"]]["bin_type"] = $line["bin_type"];
 				$inlines[$line["bin_id"]]["bin_code"] = $line["bin_code"];
 				$inlines[$line["bin_id"]]["bin_transaction_date"] = $line["bin_transaction_date"];
+
+				// TODO add salt from config
+				$secureCode = md5($line["bin_id"] . " - " . $line["bin_campaign_id"] . " - salt");
+
+				$inlines[$line["bin_id"]]["bin_secure_code"] = $secureCode;
+
 
 				if (!isset($inlines[$line["bin_id"]]["documents"])) {
 					$inlines[$line["bin_id"]]["documents"] = array();
