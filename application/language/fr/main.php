@@ -134,6 +134,7 @@ $lang["books_list_campaign_in"] = "CdC Entrées";
 $lang["books_list_campaign_out"] = "CdC Sorties";
 $lang["books_list_actions"] = "Actions";
 $lang["books_list_code"] = "Code d'imputation";
+$lang["books_list_documents"] = "Documents";
 $lang["books_actions_delete"] = "Supprimer";
 
 $lang["mypreferences_guide"] = "Changer mes préférences.";

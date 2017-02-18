@@ -26,6 +26,145 @@ function checkInvoiceSource() {
 
 }
 
+function addModifyInlineHandlers() {
+	$("#inline-table").on("click", "span.amount", function(event) {
+		var inlineId = $(this).data("inline-id");
+		var inline = $("#inline-table .inline[data-id=" + inlineId + "]");
+		var inlineCode = inline.data("inline-code");
+		var campaignId = $("#campaignId").val();
+
+		var span = $(this);
+		span.data("amount", span.html());
+
+		var input = $("<input value='' class='text-right' style='width: 60px; height: 16px;'>");
+		input.val(span.data("amount"));
+		
+		var closerButton = $("<button class='btn btn-danger btn-xxs btn-left-straight'><span class='glyphicon glyphicon-remove'></span></button>");
+
+		span.html("");
+		span.append(input);
+		span.append(closerButton);
+		
+		var updater = function(event) {
+			if (event.type != "keydown" && (event.target == input.get(0) || event.target == span.get(0))) {
+				event.stopPropagation();
+				return;
+			}
+			
+			if (event.target == closerButton.get(0) || event.target == closerButton.find("span").get(0)) {
+				closer();
+				
+				event.stopPropagation();
+				return;
+			}
+
+			var value = input.val();
+
+			if (value != span.data("amount")) {
+				var form = {property: "bin_amount", inlineCode: inlineCode, inlineId: inlineId, value: value, campaignId: campaignId};
+				$.post("do_updateInline.php", form, function(data) {
+					input.remove();
+				
+					span.html(value);
+					span.data("amount", value);
+		
+					$("*").off("click", updater);
+				}, "json");
+			}
+			else {
+				closer();
+			}
+		};
+		
+		var closer = function(event) {
+			var value = span.data("amount");
+			input.remove();
+		
+			span.html(value);
+
+			$("*").off("click", updater);
+		}
+
+		$("*").on("click", updater);
+		input.keydown(function(event) {
+			 if(event.keyCode == 13) {
+			 	event.preventDefault();
+				
+				updater(event);
+			 }
+		})
+	});
+
+	$("#inline-table").on("click", "span.inline-label", function(event) {
+		var inlineId = $(this).data("inline-id");
+		var inline = $("#inline-table .inline[data-id=" + inlineId + "]");
+		var inlineCode = inline.data("inline-code");
+		var campaignId = $("#campaignId").val();
+
+		var span = $(this);
+		span.data("label", span.html());
+
+		var input = $("<input value='' class='text-left' style='width: 170px; height: 16px;'>");
+		input.val(span.data("label"));
+		
+		var closerButton = $("<button class='btn btn-danger btn-xxs btn-left-straight'><span class='glyphicon glyphicon-remove'></span></button>");
+
+		span.html("");
+		span.append(input);
+		span.append(closerButton);
+		
+		var updater = function(event) {
+			if (event.type != "keydown" && (event.target == input.get(0) || event.target == span.get(0))) {
+				event.stopPropagation();
+				return;
+			}
+			
+			if (event.target == closerButton.get(0) || event.target == closerButton.find("span").get(0)) {
+				closer();
+				
+				event.stopPropagation();
+				return;
+			}
+
+			var value = input.val();
+
+			if (value != span.data("label")) {
+				var form = {property: "bin_label", inlineCode: inlineCode, inlineId: inlineId, value: value, campaignId: campaignId};
+				$.post("do_updateInline.php", form, function(data) {
+					input.remove();
+				
+					span.html(value);
+					span.data("label", value);
+		
+					$("*").off("click", updater);
+				}, "json");
+			}
+			else {
+				closer();
+			}
+		};
+		
+		var closer = function(event) {
+			var value = span.data("label");
+			input.remove();
+		
+			span.html(value);
+
+			$("*").off("click", updater);
+		}
+
+		$("*").on("click", updater);
+		input.keydown(function(event) {
+			 if(event.keyCode == 13) {
+			 	event.preventDefault();
+				
+				updater(event);
+			 }
+		})
+	});
+
+}
+
 $(function() {
 
 	$("input[name=invoiceSourceRadios]").click(function() {
@@ -145,7 +284,6 @@ $(function() {
 	    });
 	});
 
-	
 	$("#inline-table").on("click", ".inline .btn-remove-inline", function(event) {
 		var inlineId = $(this).data("inline-id");
 		var inline = $("#inline-table .inline[data-id=" + inlineId + "]");
@@ -190,5 +328,7 @@ $(function() {
 	        processData: false
 	    });
 	});
+
+	addModifyInlineHandlers();
 
 });

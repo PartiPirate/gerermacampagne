@@ -313,3 +313,20 @@ a.skip-main:focus, a.skip-main:active {
     margin-bottom: 2px !important;
 }
 
+.btn-xxs, .btn-group-xxs>.btn {
+    padding: 1px 3px;
+    font-size: 10px;
+    line-height: 1.1;
+    border-radius: 3px;
+    margin-top: -3px;
+}
+
+.btn-left-straight {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;    
+}
+
+.btn-right-straight {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;    
+}

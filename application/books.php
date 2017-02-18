@@ -87,6 +87,8 @@ if ($campaign) {
 
 	<?php 	if ($user) {?>
 
+	<input id="campaignId" value="<?php echo $campaign["cam_id"]; ?>">
+
 	<div class="col-md-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -164,21 +166,23 @@ if ($campaign) {
 			<thead>
 				<tr>
 					<th><?php echo lang("books_list_name"); ?></th>
-					<th style="width: 140px;"><?php echo lang("books_list_date"); ?></th>
-					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_code"); ?></th>
-					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_ballot_in"); ?></th>
-					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_ballot_out"); ?></th>
-					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_campaign_in"); ?></th>
-					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_campaign_out"); ?></th>
-					<th class="text-center" style="width: 140px;"><?php echo lang("books_list_actions"); ?></th>
+					<th class="text-center" style="width: 110px;"><?php echo lang("books_list_documents"); ?></th>
+					<th style="width: 110px;"><?php echo lang("books_list_date"); ?></th>
+					<th class="text-center" style="width: 110px;"><?php echo lang("books_list_code"); ?></th>
+					<th class="text-center" style="width: 120px;"><?php echo lang("books_list_ballot_in"); ?></th>
+					<th class="text-center" style="width: 120px;"><?php echo lang("books_list_ballot_out"); ?></th>
+					<th class="text-center" style="width: 120px;"><?php echo lang("books_list_campaign_in"); ?></th>
+					<th class="text-center" style="width: 120px;"><?php echo lang("books_list_campaign_out"); ?></th>
+					<th class="text-center" style="width: 110px;"><?php echo lang("books_list_actions"); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 			<?php 	foreach($inlines as $inline) { ?>
 				<tr class="inline" data-id="<?php echo $inline["bin_id"]; ?>" data-inline-code="<?php echo $inline["bin_secure_code"]; ?>">
 					<td>
-						<span class="inline-label"><?php echo $inline["bin_label"]; ?></span>
-
+						<span class="inline-label" data-inline-id="<?php echo $inline["bin_id"]; ?>"><?php echo $inline["bin_label"]; ?></span>
+					</td>
+					<td>
 						<?php foreach($inline["documents"] as $document) {?>
 							<span class="badge pull-right"><?php echo lang("document_type_" . $document["ido_type"]); ?></span>
 							<span class="pull-right">&nbsp;</span>
@@ -198,7 +202,11 @@ if ($campaign) {
 					
 					<?php 
 					
-						$formatedAmount = number_format($inline["bin_amount"], 2) . "&euro;";
+						$amount = number_format($inline["bin_amount"], 2);
+					
+						$formatedAmount = "<span class=\"amount\" data-inline-id=\"" . $inline["bin_id"] . "\">";
+						$formatedAmount .= $amount;
+						$formatedAmount .= "</span>&euro;";
 						
 						if ($inline["bin_type"] == "quotation") {
 							$formatedAmount = "(" . $formatedAmount . ")";
@@ -222,6 +230,7 @@ if ($campaign) {
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
 					<td class="text-right"><?php echo number_format($bin, 2); ?>&euro;</td>
 					<td class="text-right"><?php echo number_format($bout, 2); ?>&euro;</td>
 					<td class="text-right"><?php echo number_format($cin, 2); ?>&euro;</td>
@@ -229,6 +238,7 @@ if ($campaign) {
 					<td></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
