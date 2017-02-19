@@ -87,7 +87,7 @@ if ($campaign) {
 
 	<?php 	if ($user) {?>
 
-	<input id="campaignId" value="<?php echo $campaign["cam_id"]; ?>">
+	<input id="campaignId" value="<?php echo $campaign["cam_id"]; ?>" type="hidden">
 
 	<div class="col-md-6">
 		<div class="panel panel-default">
