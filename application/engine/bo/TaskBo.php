@@ -152,6 +152,44 @@ class TaskBo {
 		return array();
 	}
 
+	function getTaskModels($template) {
+		$templateId = $template;
+		if (is_array($template)) {
+			$templateId = $template["cte_id"];
+		}
+		
+		$query = "	SELECT *
+					FROM task_models
+					WHERE tmo_campaign_template_id = :tmo_campaign_template_id ";
+
+		$args = array("tmo_campaign_template_id" => $templateId);
+
+		$statement = $this->pdo->prepare($query);
+//		echo showQuery($query, $args);
+
+		$results = array();
+
+		try {
+			$statement->execute($args);
+			$results = $statement->fetchAll();
+
+			foreach($results as $index => $line) {
+				foreach($line as $field => $value) {
+					if (is_numeric($field)) {
+						unset($results[$index][$field]);
+					}
+				}
+			}
+		}
+		catch(Exception $e){
+			echo 'Erreur de requète : ', $e->getMessage();
+		}
+
+//		print_r($results);
+
+		return $results;
+	}
+
 	function duplicateTaskModel($campaign, $taskLabel) {
 		if ($this->hasTask($campaign, $taskLabel)) return;
 

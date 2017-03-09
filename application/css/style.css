@@ -330,3 +330,11 @@ a.skip-main:focus, a.skip-main:active {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;    
 }
+
+.message-header.not-read {
+    font-weight: bolder;
+}
+
+.force-text-left {
+    text-align: left !important;
+}

@@ -130,7 +130,7 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 					<label class="col-md-4 control-label" for="startDateInput"><?php echo lang("campaign_property_startDate"); ?></label>
 					<div class="col-md-8">
 						<p class="form-control-static"><?php
-                                                        $date = new DateTime($partyCampaign["cam_start_date"]);
+                                                        $date = new DateTime($campaign["cam_start_date"]);
                                                         $date = $date->format(lang("date_format"));
                                                         echo $date;
 //							echo $campaign["cam_start_date"];
@@ -142,7 +142,7 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 					<label class="col-md-4 control-label" for="finishDateInput"><?php echo lang("campaign_property_finishDate"); ?></label>
 					<div class="col-md-8">
 						<p class="form-control-static"><?php
-                                                        $date = new DateTime($partyCampaign["cam_finish_date"]);
+                                                        $date = new DateTime($campaign["cam_finish_date"]);
                                                         $date = $date->format(lang("date_format"));
                                                         echo $date;
 //							echo $campaign["cam_finish_date"];

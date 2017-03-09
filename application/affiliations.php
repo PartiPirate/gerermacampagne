@@ -1,5 +1,5 @@
 <?php /*
-	Copyright 2016 Cédric Levieux, Parti Pirate
+	Copyright 2016-2017 Cédric Levieux, Parti Pirate
 
 	This file is part of GererMaCampagne.
 
@@ -94,13 +94,15 @@ foreach($administratedParties as $index => $party) {
 
 	<?php 		}?>
 
-
-
 <div class="col-md-12 text-center" id="modeDiv">
 	<div id="modeButtons" class="btn-group" role="group" aria-label="...">
 		<button value="mode-text" type="button" class="btn btn-default active"><?php echo lang("affiliation_mode_text"); ?></button>
 		<button value="mode-graphic" type="button" class="btn btn-default"><?php echo lang("affiliation_mode_graphic"); ?></button>
 	</div>
+	
+	<?php 	foreach($administratedParties as $index => $party) {?>
+	<button class="btn btn-primary btn-send-mail" data-from-id="<?php echo $party["ppa_id"]; ?>" data-from-type="party" ><span class="glyphicon glyphicon-envelope"></span></button>
+	<?php 	} ?>
 </div>
 
 <div class="clearfix"></div>
@@ -245,6 +247,10 @@ foreach($administratedParties as $index => $party) {
 	<div class="clearfix"></div>
 
 	<?php 	}?>
+	
+	<?php
+				include("dialogs/sendTaskMail.php");
+	?>
 
 	<?php 	}
 			else {

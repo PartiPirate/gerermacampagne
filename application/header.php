@@ -118,6 +118,7 @@ if ($userId) {
 					<?php 	if (count($administratedParties)) {?>
 					<li id="affiliationsMenuItem" <?php if ($page == "affiliations") echo 'class="active"'; ?>><a href="affiliations.php"><?php echo lang("menu_affiliations"); ?> <span class="badge <?php if (!$waitingAffiliations) { echo "hidden"; } ?>"><?php echo $waitingAffiliations; ?></span>  <?php if ($page == "affiliations") echo ' <span class="sr-only">(current)</span>'; ?></a></li>
 					<?php 	}?>
+					<li <?php if ($page == "messaging") echo 'class="active"'; ?>><a href="messaging.php"><?php echo lang("menu_messaging"); ?><?php if ($page == "messaging") echo ' <span class="sr-only">(current)</span>'; ?></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 

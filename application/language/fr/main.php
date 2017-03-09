@@ -1,5 +1,5 @@
 <?php /*
-	Copyright 2016 Cédric Levieux, Parti Pirate
+	Copyright 2016-2017 Cédric Levieux, Parti Pirate
 
 	This file is part of GererMaCampagne.
 
@@ -45,6 +45,7 @@ $lang["menu_documents"] = "Documents";
 $lang["menu_books"] = "Livres de compte";
 $lang["menu_affiliations"] = "Affiliations";
 $lang["menu_votingPaper"] = "Bulletin de vote";
+$lang["menu_messaging"] = "Messagerie";
 
 $lang["login_title"] = "Identifiez vous";
 $lang["login_loginInput"] = "Identifiant";
@@ -190,6 +191,12 @@ $lang["affiliations_actions"] = "Actions";
 $lang["affiliation_mode_text"] = "Mode texte";
 $lang["affiliation_mode_graphic"] = "Mode graphique";
 $lang["affiliation_button_remove"] = "Annuler l'affiliation";
+
+$lang["send_mail_to_candidates"] = "Candidat-e-s et suppléant-e-s";
+$lang["send_mail_to_representatives"] = "Mandataires";
+$lang["send_mail_to_status_all"] = "-";
+$lang["send_mail_to_status_done"] = "Seulement s'ils ont fait";
+$lang["send_mail_to_status_not_done"] = "Seulement s'ils n'ont pas fait";
 
 $lang["votingPaper_guide"] = "Vous pouvez ici créer votre bulletin de vote";
 $lang["votingPaper_form_legend"] = "Créez votre bulletin";

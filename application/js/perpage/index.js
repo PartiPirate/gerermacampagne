@@ -1,3 +1,5 @@
+/* global $ */
+
 function saveResponseHandler(data) {
 	if (data.ok) {
 		window.location.reload(true);
