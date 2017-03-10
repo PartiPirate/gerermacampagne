@@ -347,6 +347,19 @@ $(function() {
 	    });
 	});
 
+	$("#paymentTypeButtons button").click(function(e) {
+		$("#paymentTypeButtons button").removeClass("active");
+		$(this).addClass("active");
+		$("#paymentType").val($(this).val());
+		
+		if ($(this).val() == "check") {
+			$("#checkFileDiv").show();
+		}
+		else {
+			$("#checkFileDiv").hide();
+		}
+	});
+
 	addModifyInlineHandlers();
 
 });

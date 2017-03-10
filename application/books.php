@@ -183,7 +183,8 @@ if ($campaign) {
 						<span class="inline-label" data-inline-id="<?php echo $inline["bin_id"]; ?>"><?php echo $inline["bin_label"]; ?></span>
 					</td>
 					<td>
-						<?php foreach($inline["documents"] as $document) {?>
+						<?php foreach($inline["documents"] as $document) {
+								if (!$document["ido_type"]) continue; ?>
 							<span class="badge pull-right"><?php echo lang("document_type_" . $document["ido_type"]); ?></span>
 							<span class="pull-right">&nbsp;</span>
 						<?php }?>

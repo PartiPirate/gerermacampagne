@@ -108,6 +108,7 @@ else {
 	$inline["bin_column"] = "output";
 	$inline["bin_type"] = "invoice";
 	$inline["bin_code"] = $_REQUEST["code"];
+	$inline["bin_payment_type"] = null;
 
 	if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 		$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];

@@ -35,4 +35,16 @@ $lang["code_6260"] = "6260 - frais postaux et de distribution";
 $lang["code_6262"] = "6262 - téléphone et télécommunications";
 $lang["code_6280"] = "6280 - frais divers";
 $lang["code_6600"] = "6600 - frais financiers";
+
+$lang["code_7010"] = "7010 - Don de personne physique";
+$lang["code_7021"] = "7021 - Don de tête de liste/colistier";
+$lang["code_7022"] = "7022 - Emprunts bancaires du candidat";
+$lang["code_7023"] = "7023 - Emprunt auprès d'une formation politique";
+$lang["code_7025"] = "7025 - Emprunt auprès des personnes physique";
+$lang["code_7031"] = "7031 - Versements définitif des formations politiques";
+
+$lang["payment_type_cash"] = "En espèce";
+$lang["payment_type_check"] = "Chèque";
+$lang["payment_type_cb"] = "Carte Bleue";
+$lang["payment_type_transfer"] = "Virement";
 ?>

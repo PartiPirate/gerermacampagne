@@ -75,10 +75,10 @@ class BookInlineBo {
 	function addInline(&$inline) {
 		$query = "	INSERT INTO book_inlines
 						(bin_campaign_id, bin_label, bin_amount,
-						bin_book, bin_column, bin_type, bin_transaction_date, bin_code)
+						bin_book, bin_column, bin_type, bin_transaction_date, bin_code, bin_payment_type)
 					VALUES
 						(:bin_campaign_id, :bin_label, :bin_amount,
-						:bin_book, :bin_column, :bin_type, :bin_transaction_date, :bin_code)	";
+						:bin_book, :bin_column, :bin_type, :bin_transaction_date, :bin_code, :bin_payment_type)	";
 
 		$statement = $this->pdo->prepare($query);
 		//		echo showQuery($query, $args);

@@ -106,7 +106,34 @@
 							</div>
 						</div>
 
-						<div class="form-group has-feedback">
+						<div class="form-group has-feedback" id="donationCodeDiv">
+							<label class="col-md-3 control-label" for="donation-code">Imputation</label>
+							<div class="col-md-8">
+								<select id="donation-code" name="code" class="form-control">
+									<option value="7010"><?php echo lang("code_7010"); ?></option>
+									<option value="7021"><?php echo lang("code_7021"); ?></option>
+									<option value="7022"><?php echo lang("code_7022"); ?></option>
+									<option value="7023"><?php echo lang("code_7023"); ?></option>
+									<option value="7025"><?php echo lang("code_7025"); ?></option>
+									<option value="7031"><?php echo lang("code_7031"); ?></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group has-feedback" id="donationCodeDiv">
+							<label class="col-md-3 control-label" for="paymentTypeButtons">Mode de règlement</label>
+							<div class="col-md-8" id="paymentTypeDiv">
+								<input type="hidden" name="paymentType" id="paymentType">
+								<div id="paymentTypeButtons" class="btn-group" role="group">
+									<button value="cash" type="button" class="btn btn-default"><?php echo lang("payment_type_cash"); ?></button>
+									<button value="check" type="button" class="btn btn-default active"><?php echo lang("payment_type_check"); ?></button>
+									<button value="cb" type="button" class="btn btn-default"><?php echo lang("payment_type_cb"); ?></button>
+									<button value="transfer" type="button" class="btn btn-default"><?php echo lang("payment_type_transfer"); ?></button>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group has-feedback" id="checkFileDiv">
 							<label class="col-md-3 control-label" for="checkFile">Chèque</label>
 							<div class="col-md-8">
 								<input id="checkFile" name="checkFile" value="" data-show-upload="false" type="file" placeholder=""

@@ -83,6 +83,7 @@ $inline["bin_amount"] = $amount;
 $inline["bin_book"] = "campaign";
 $inline["bin_column"] = "output";
 $inline["bin_type"] = "quotation";
+$inline["bin_payment_type"] = null;
 
 if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 	$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];

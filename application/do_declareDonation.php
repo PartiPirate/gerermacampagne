@@ -82,7 +82,8 @@ $inline["bin_amount"] = $amount;
 $inline["bin_book"] = "campaign";
 $inline["bin_column"] = "input";
 $inline["bin_type"] = "donation";
-$inline["bin_code"] = "";
+$inline["bin_code"] = $_REQUEST["code"];
+$inline["bin_payment_type"] = $_REQUEST["paymentType"];
 
 if (isset($_REQUEST["inlineDate"]) && $_REQUEST["inlineDate"]) {
 	$inline["bin_transaction_date"] = $_REQUEST["inlineDate"];
@@ -94,7 +95,7 @@ else {
 
 $bookBo->addInline($inline);
 
-if (isset($_FILES["checkFile"])) {
+if (isset($_FILES["checkFile"]) && $inline["bin_payment_type"] == "check") {
 	$file = $_FILES["checkFile"];
 
 	$document = array();
