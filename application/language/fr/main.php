@@ -61,6 +61,7 @@ $lang["breadcrumb_history"] = "Historique";
 $lang["breadcrumb_mypreferences"] = "Mes préférences";
 $lang["breadcrumb_myparties"] = "Mes partis";
 $lang["breadcrumb_myrights"] = "Mes droits";
+$lang["breadcrumb_mycampaigns"] = "Mes campagnes";
 $lang["breadcrumb_mypage"] = "Ma page";
 $lang["breadcrumb_register"] = "Enregistrement";
 $lang["breadcrumb_activation"] = "Activation";
@@ -172,16 +173,7 @@ $lang["myrights_scores_validation_score"] = "Les points requis pour valider";
 $lang["myrights_administration_legend"] = "Mes comptes administrés";
 $lang["myrights_scores_no_adminstation"] = "Vous n'avez aucun droit d'administration";
 
-$lang["mypage_guide"] = "Ceci est une page compilant vos statistiques";
-$lang["mypage_tweets_legend"] = "Mes tweets";
-$lang["mypage_validations_legend"] = "Mes validations";
-$lang["mypage_scores_legend"] = "Mes scores";
-$lang["mypage_tweet_and_validations_chart_legend"] = "Mes tweets et validations dans le temps";
-$lang["mypage_tweet_and_validations_chart_axisY"] = "Quantité";
-$lang["mypage_score_chart_axisY"] = "Score";
-$lang["mypage_tweet_and_validations_chart_axisX"] = "Date";
-$lang["mypage_tweet_and_validations_chart_formatDate"] = "DD/MM/YYYY";
-$lang["mypage_tweet_and_validations_chart_jsFormatDate"] = "(date.getDate() < 10 ? '0' : '') + date.getDate() + '/' + (date.getMonth() < 11 ? '0' : '') + (date.getMonth() + 1) + '/' + date.getFullYear()";
+$lang["mycampaigns_guide"] = "Mes campagnes dans le temps";
 
 $lang["affiliations_guide"] = "Vous pouvez gérer ici les campagnes qui ont demandé une affiliation à votre parti politique";
 $lang["affiliations_waiting_title"] = "Affiliations en attente";
