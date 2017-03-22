@@ -83,7 +83,10 @@ $lang["index_nocampaign_form_startDateInput"] = "Date du premier tour";
 $lang["index_nocampaign_form_startDatePlaceHolder"] = "AAAA-MM-JJ";
 $lang["index_nocampaign_form_finishDateInput"] = "Date du deuxième tour";
 $lang["index_nocampaign_form_finishDatePlaceHolder"] = "AAAA-MM-JJ";
+$lang["index_nocampaign_form_templateInput"] = "Créer à partir d'un modèle";
+$lang["index_nocampaign_form_no_template"] = "Pas de modèle";
 $lang["index_nocampaign_form_save"] = "Créer";
+
 $lang["index_campaign_info_title"] = "Informations";
 $lang["index_campaign_actors_title"] = "Acteurs";
 

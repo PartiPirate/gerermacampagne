@@ -195,8 +195,9 @@ class TaskBo {
 
 		$query = "	SELECT *
 					FROM task_models
-					WHERE tmo_label = :tmo_label ";
-		$args = array("tmo_label" => $taskLabel);
+					WHERE tmo_label = :tmo_label 
+					AND tmo_campaign_template_id = :tmo_campaign_template_id ";
+		$args = array("tmo_label" => $taskLabel, "tmo_campaign_template_id" => $campaign["cam_campaign_template_id"]);
 
 		$statement = $this->pdo->prepare($query);
 //		echo showQuery($query, $args);
@@ -261,9 +262,11 @@ class TaskBo {
 		$query = "	SELECT *
 					FROM task_models
 					WHERE
-						tmo_dependencies LIKE :like_tmo_dependencies ";
+						tmo_dependencies LIKE :like_tmo_dependencies 
+					AND tmo_campaign_template_id = :tmo_campaign_template_id ";
 
-		$args = array("like_tmo_dependencies" => "%\"" . $taskLabel . "\"%");
+
+		$args = array("like_tmo_dependencies" => "%\"" . $taskLabel . "\"%", "tmo_campaign_template_id" => $campaign["cam_campaign_template_id"]);
 
 		$statement = $this->pdo->prepare($query);
 		//		echo showQuery($query, $args);

@@ -1,4 +1,6 @@
 /* global $ */
+/* global tasks */
+/* global $lang */
 
 function saveResponseHandler(data) {
 	if (data.ok) {
@@ -17,6 +19,7 @@ function lang(key) {
 function saveButtonHandler(event) {
 	event.preventDefault();
 	var myform = {
+					template: $("#templateInput").val(), 
 					name: $("#nameInput").val(),
 					electoralDistrict: $("#electoralDistrictInput").val(),
 					right: $("#rightInput").val(),
@@ -177,7 +180,39 @@ function askAffiliation(campaignId, ppId) {
 	}, "json");
 }
 
+function addNewCampaignHandlers() {
+	$("#templateInput").change(function() {
+		var selectedTemplate = $("#templateInput option:selected").data("template");
+
+		$("#rightButtons button").show();
+		
+		if (selectedTemplate) {
+			if (selectedTemplate.cte_turns == 1) {
+				$("#finishDateDiv").hide();
+			}
+			else {
+				$("#finishDateDiv").show();
+				$("#finishDateInput").val(selectedTemplate.cte_second_turn);
+			}
+
+			if (selectedTemplate.cte_positions.listHead == 0) $("#rightButtons button[value=listHead]").hide();
+			if (selectedTemplate.cte_positions.substitute == 0) $("#rightButtons button[value=substitute]").hide();
+			if (selectedTemplate.cte_positions.candidate == 0) $("#rightButtons button[value=candidate]").hide();
+			if (selectedTemplate.cte_positions.representative == 0) $("#rightButtons button[value=representative]").hide();
+
+			$("#startDateInput").val(selectedTemplate.cte_first_turn);
+		}
+		else {
+			$("#finishDateDiv").show();
+			$("#startDateInput").val("");
+			$("#finishDateInput").val("");
+		}
+	})
+}
+
 $(function() {
+
+	addNewCampaignHandlers();
 
 	/* BEGIN Remove actor */
 

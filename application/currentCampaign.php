@@ -77,7 +77,7 @@ if ($campaign) {
 
 <script>
 
-var tasks = <?php echo json_encode($campaign["tasks"]); ?>
+var tasks = <?php echo json_encode($campaign["tasks"]); ?>;
 
 </script>
 
@@ -202,7 +202,7 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 <br />
 
 <div class="col-md-12 text-center" id="filterDiv">
-	<div id="filterButtons" class="btn-group" role="group" aria-label="...">
+	<div id="filterButtons" class="btn-group" role="group">
 		<button value="no" type="button" class="btn btn-default active"><?php echo lang("tasks_filter_no"); ?></button>
 		<button value="done" type="button" class="btn btn-default"><?php echo lang("tasks_filter_done"); ?></button>
 		<button value="emergency" type="button" class="btn btn-default"><?php echo lang("tasks_filter_emergency"); ?></button>
@@ -309,7 +309,16 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 
 
 
-<?php 	} else { ?>
+<?php 	} 
+		else { // No campaign 
+
+require_once("engine/bo/TemplateBo.php");
+
+$templateBo = TemplateBo::newInstance($connection, $config);
+
+$templates = $templateBo->getByFilters(array("cte_active" => 1));
+
+?>
 <div class="col-md-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -325,8 +334,25 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 				</legend>
 
 				<div class="form-group has-feedback">
+					<label class="col-md-4 control-label" for="templateInput"><?php echo lang("index_nocampaign_form_templateInput"); ?></label>
+					
+					<div class="col-md-7">
+						<select id="templateInput" name="templateInput" class="form-control">
+							<option value="0"><?php echo lang("index_nocampaign_form_no_template"); ?></option>
+<?php		foreach($templates as $template) { 
+				$template["cte_positions"] = json_decode($template["cte_positions"], true);
+
+				$template_json = json_encode($template);				
+?>
+							<option value="<?php echo $template["cte_id"]; ?>" data-template="<?php echo str_replace("\"", "&quot;", $template_json); ?>"><?php echo $template["cte_label"]; ?></option>
+<?php		}	?>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group has-feedback">
 					<label class="col-md-4 control-label" for="nameInput"><?php echo lang("index_nocampaign_form_nameInput"); ?></label>
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<input id="nameInput" name="nameInput" value="" type="text"
 							placeholder="" class="form-control input-md">
 						<span id="nameStatus"
@@ -337,7 +363,7 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 
 				<div class="form-group has-feedback">
 					<label class="col-md-4 control-label" for="electoralDistrictInput"><?php echo lang("index_nocampaign_form_electoralDistrictInput"); ?></label>
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<input id="electoralDistrictInput" name="electoralDistrictInput" value="" type="text"
 							placeholder="" class="form-control input-md">
 						<span id="electoralDistrictStatus"
@@ -348,8 +374,8 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="listHeadButton"><?php echo lang("index_nocampaign_form_rightInput");?></label>
-					<div class="col-md-8">
-						<div id="rightButtons" class="btn-group" role="group" aria-label="...">
+					<div class="col-md-7">
+						<div id="rightButtons" class="btn-group" role="group">
 							<button value="listHead" type="button" class="btn btn-default active">Tête de liste</button>
 							<button value="substitute" type="button" class="btn btn-default">Suppléant</button>
 							<button value="candidate" type="button" class="btn btn-default">Candidat</button>
@@ -372,7 +398,7 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 			        </div>
 				</div>
 
-				<div class="form-group">
+				<div class="form-group" id="finishDateDiv">
 					<label class="col-md-4 control-label" for="finishDateInput"><?php echo lang("index_nocampaign_form_finishDateInput");?></label>
 					<div class="col-md-3">
 		                <div class='input-group date'>
@@ -387,7 +413,7 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>
 
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="saveButton"></label>
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<button id="saveButton" name="saveButton" class="saveButton btn btn-default"><?php echo lang("index_nocampaign_form_save"); ?></button>
 					</div>
 				</div>

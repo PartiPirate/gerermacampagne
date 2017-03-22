@@ -38,6 +38,8 @@ $campaign["cam_name"] = $_REQUEST["name"];
 $campaign["cam_electoral_district"] = $_REQUEST["electoralDistrict"];
 $campaign["cam_start_date"] = $_REQUEST["startDate"];
 $campaign["cam_finish_date"] = $_REQUEST["finishDate"];
+$campaign["cam_campaign_template_id"] = $_REQUEST["template"];
+
 if (!$campaign["cam_finish_date"]) {
 	$campaign["cam_finish_date"] = "0000-00-00";
 }
