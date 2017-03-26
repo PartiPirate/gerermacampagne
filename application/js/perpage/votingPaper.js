@@ -59,6 +59,10 @@ function getVotingPaperCode() {
 	var clone = $("#votingPaper").clone();
 	clone.find("div").attr("class", "");
 	clone.find("div").css("border", "");
+	
+	clone.find("div").each(function() {
+		$(this).children("*:not(:first-child)").remove();
+	});
 
 	return clone.html();
 }
