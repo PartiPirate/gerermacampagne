@@ -149,7 +149,7 @@ html,body {
 
 .alert-primary {
   color: #656565;
-//  background-color: #E9E9E9;
+/*  background-color: #E9E9E9; */
   background-color: #FFF;
   border-color: #DCDCDC;
 }
@@ -289,12 +289,12 @@ a.skip-main:focus, a.skip-main:active {
     height: auto;
     overflow:auto;
     margin: 10px 35%;
-    padding:5px;
+    padding: 5px;
     border-radius: 15px;
-    border:4px solid yellow;
-    text-align:center;
-    font-size:1.2em;
-    z-index:999;
+    border: 4px solid yellow;
+    text-align: center;
+    font-size: 1.2em;
+    z-index: 999;
 }
 
 .mode-text .mode-graphic {
@@ -337,4 +337,10 @@ a.skip-main:focus, a.skip-main:active {
 
 .force-text-left {
     text-align: left !important;
+}
+
+.inline-label {
+    display: inline-block;
+    min-width: 50px;
+    height: 20px;
 }

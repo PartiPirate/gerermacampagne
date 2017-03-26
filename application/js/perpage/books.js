@@ -122,7 +122,7 @@ function addModifyInlineHandlers() {
 		var span = $(this);
 		span.data("label", span.html());
 
-		var input = $("<input value='' class='text-left' style='width: 170px; height: 16px;'>");
+		var input = $("<input value='' class='text-left' style='width: 170px; height: 16px; margin-left: -2px;'>");
 		input.val(span.data("label"));
 		
 		var closerButton = $("<button class='btn btn-danger btn-xxs btn-left-straight'><span class='glyphicon glyphicon-remove'></span></button>");
