@@ -196,7 +196,7 @@ $(function() {
 		var selectedOption = $("#quotationSelect option:selected");
 
 		$("#addInvoiceForm #amount").val(selectedOption.attr("aria-amount"));
-		$("#addInvoiceForm #inlineDate").val(selectedOption.attr("aria-date"));
+		$("#addInvoiceForm #inlineDate").val(selectedOption.attr("data-date"));
 	});
 
 	$('#addInvoiceDiv #inlineDate, #addQuotationDiv #inlineDate, #declareDonationDiv #inlineDate').parent("div").datetimepicker({
@@ -300,6 +300,23 @@ $(function() {
 	        contentType: false,
 	        processData: false
 	    });
+	});
+
+	$(".btn-add-invoice").click(function(event) {
+		$("input[name=invoiceSourceRadios]").removeAttr("checked");
+		$("#invoiceSource").val("");
+		checkInvoiceSource();
+	});
+
+	$("#inline-table").on("click", ".inline .btn-set-invoice", function(event) {
+		var inlineId = $(this).data("inline-id");
+		var inline = $("#inline-table .inline[data-id=" + inlineId + "]");
+		var label = inline.find(".inline-label").text();
+
+		$("#addInvoiceDiv").modal("show");
+		$("#fromQuotationRadio").click();		
+		$("#quotationSelect").val(0);
+		$("#quotationSelect").change();
 	});
 
 	$("#inline-table").on("click", ".inline .btn-remove-inline", function(event) {

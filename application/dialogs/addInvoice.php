@@ -51,7 +51,7 @@
 <?php 				}	?>
 
 					<div class="modal-body">
-						<p>Renseignez les informations pour ce devis</p>
+						<p>Renseignez les informations pour cette facture</p>
 					</div>
 
 					<fieldset id="invoiceProviderFieldset">
@@ -103,9 +103,9 @@
 							<label class="col-md-3 control-label" for="quotationSelect">Devis</label>
 							<div class="col-md-4">
 								<select id="quotationSelect" name="quotationSelect" class="form-control">
-									<option value="" aria-amount="" aria-date=""></option>
+									<option value="" aria-amount="" data-date=""></option>
 <?php 	foreach($onlyQuotations as $quotation) {?>
-									<option value="<?php echo $quotation["bin_id"]; ?>" aria-amount="<?php echo $quotation["bin_amount"]; ?>" aria-date="<?php echo $quotation["bin_transaction_date"]; ?>"><?php echo $quotation["bin_label"]; ?></option>
+									<option value="<?php echo $quotation["bin_id"]; ?>" aria-amount="<?php echo $quotation["bin_amount"]; ?>" data-date="<?php echo $quotation["bin_transaction_date"]; ?>"><?php echo $quotation["bin_label"]; ?></option>
 <?php 	}?>
 								</select>
 							</div>

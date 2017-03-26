@@ -141,6 +141,8 @@ $lang["books_list_actions"] = "Actions";
 $lang["books_list_code"] = "Code d'imputation";
 $lang["books_list_documents"] = "Documents";
 $lang["books_actions_delete"] = "Supprimer";
+$lang["books_actions_pay"] = "Payer";
+$lang["books_actions_set_invoice"] = "Attacher une facture";
 
 $lang["mypreferences_guide"] = "Changer mes préférences.";
 $lang["mypreferences_form_legend"] = "Configuration de vos accès";

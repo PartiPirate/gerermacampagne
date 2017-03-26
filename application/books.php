@@ -34,7 +34,7 @@ if ($campaign) {
 // 		print_r($inline);
 // 		echo "<br />\n";
 
-		if ($inline["bin_type"] == "invoice") {
+		if ($inline["bin_type"] == "quotation") {
 //			echo "Invoice <br />\n";
 
 			$hasInvoice = false;
@@ -144,8 +144,8 @@ if ($campaign) {
 					<span class="badge"><a href="#addQuotationDiv" class="color-inherit" data-toggle="modal" data-target="#addQuotationDiv"><span class="glyphicon glyphicon-plus"></span></a></span>
 				</li>
 				<li class="list-group-item">
-					<a href="#addInvoiceDiv" data-toggle="modal" data-target="#addInvoiceDiv">Ajouter une facture</a>
-					<span class="badge"><a href="#addInvoiceDiv" class="color-inherit" data-toggle="modal" data-target="#addInvoiceDiv"><span class="glyphicon glyphicon-plus"></span></a></span>
+					<a href="#addInvoiceDiv" class="btn-add-invoice" data-toggle="modal" data-target="#addInvoiceDiv">Ajouter une facture</a>
+					<span class="badge"><a href="#addInvoiceDiv" class="color-inherit btn-add-invoice" data-toggle="modal" data-target="#addInvoiceDiv"><span class="glyphicon glyphicon-plus"></span></a></span>
 				</li>
 			</ul>
 		</div>
@@ -181,6 +181,7 @@ if ($campaign) {
 				<tr class="inline" data-id="<?php echo $inline["bin_id"]; ?>" data-inline-code="<?php echo $inline["bin_secure_code"]; ?>">
 					<td>
 						<span class="inline-label" data-inline-id="<?php echo $inline["bin_id"]; ?>"><?php echo $inline["bin_label"]; ?></span>
+						<?php echo $inline["bin_type"]; ?>
 					</td>
 					<td>
 						<?php foreach($inline["documents"] as $document) {
@@ -220,6 +221,14 @@ if ($campaign) {
 					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "input") { echo $formatedAmount; }?></td>
 					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "output") { echo $formatedAmount; }?></td>
 					<td class="text-center">
+						<?php	if ($inline["bin_type"] == "quotation") {?>
+						<button class="btn btn-primary btn-xs btn-set-invoice" 
+							data-inline-id="<?php echo $inline["bin_id"]; ?>" ><span class="glyphicon glyphicon-euro"></span> <?php echo lang("books_actions_set_invoice"); ?></button>
+						<?php	} ?>
+						<?php	if ($inline["bin_type"] == "invoice" && false) {?>
+						<button class="btn btn-success btn-xs btn-pay-invoice" 
+							data-inline-id="<?php echo $inline["bin_id"]; ?>" ><span class="glyphicon glyphicon-euro"></span> <?php echo lang("books_actions_pay"); ?></button>
+						<?php	} ?>
 						<button class="btn btn-danger btn-xs btn-remove-inline" 
 							data-inline-id="<?php echo $inline["bin_id"]; ?>" ><span class="glyphicon glyphicon-remove"></span> <?php echo lang("books_actions_delete"); ?></button>
 					</td>
