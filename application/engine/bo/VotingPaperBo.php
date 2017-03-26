@@ -98,4 +98,39 @@ class VotingPaperBo {
 
 		return null;
 	}
+
+
+	function retrieveVotingPaper($votingPaper) {
+		$query = "	SELECT *
+					FROM
+						voting_papers
+					WHERE
+						1 = 1 ";
+
+		$separator = "\n AND ";
+
+		foreach($votingPaper as $field => $value) {
+			$query .= $separator;
+			$query .= $field . " = :". $field;
+			$separator = "\n AND ";
+		}
+
+		$statement = $this->pdo->prepare($query);
+
+		$statement->execute($votingPaper);
+		$results = $statement->fetchAll();
+
+		if (! count($results)) return $votingPaper;
+
+		foreach($results as $index => $line) {
+			foreach($line as $field => $value) {
+				if (is_numeric($field)) {
+					unset($results[$index][$field]);
+				}
+			}
+		}
+
+		return $results[0];
+	}
+	
 }

@@ -35,28 +35,16 @@ $campaign = $campaignBo->getUserCampaign($userId, $campaignId);
 
 if (!$campaign) exit();
 
-$votingPaper = array();
+$votingPaper = $votingPaperBo->getLastVotingPaper($campaign["cam_id"]);
 
-// bad
-//$votingPaper["vpa_id"] = $_REQUEST["votingPaperId"];
-
-if ($_REQUEST["type"] == "campaign") {
-    $votingPaper["vpa_campaign_id"] = $campaign["cam_id"];
+if (!$votingPaper) {
+	$votingPaper["vpa_id"] = "";
+	$votingPaper["vpa_code"] = "";
+	$votingPaper["vpa_format"] = "105x148";
 }
-else if ($_REQUEST["type"] == "party") {
-    $votingPaper["vpa_political_party_id"] = $_REQUEST["politicalPartyId"];
-    $votingPaper["vpa_campaign_template_id"] = $campaign["cam_campaign_template_id"];
-}
-
-$votingPaper = $votingPaperBo->retrieveVotingPaper($votingPaper);
-
-$votingPaper["vpa_format"] = $_REQUEST["paperFormat"];
-$votingPaper["vpa_code"] = $_REQUEST["votingPaperCode"];
-
-$votingPaperBo->save($votingPaper);
 
 $data["ok"] = "ok";
-$data["votingPaperId"] = $votingPaper["vpa_id"];
+$data["votingPaper"] = $votingPaper;
 
 echo json_encode($data);
 ?>

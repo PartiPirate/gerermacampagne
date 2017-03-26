@@ -38,15 +38,6 @@ if ($campaign) {
 //	echo "<br>";
 //	print_r($partyDocuments);
 //	echo "<br>";
-
-	$votingPaperBo = VotingPaperBo::newInstance(openConnection());
-	$votingPaper = $votingPaperBo->getLastVotingPaper($campaign["cam_id"]);
-
-	if (!$votingPaper) {
-		$votingPaper["vpa_id"] = "";
-		$votingPaper["vpa_code"] = "";
-		$votingPaper["vpa_format"] = "105x148";
-	}
 }
 
 ?>
@@ -66,6 +57,9 @@ if ($campaign) {
 		<fieldset>
 
 			<input id="campaignId" name="campaignId" value="<?php echo $campaign["cam_id"]; ?>" type="hidden" />
+			<input id="templateId" name="templateId" value="<?php echo $campaign["cam_campaign_template_id"]; ?>" type="hidden" />
+			<input id="politicalPartyId" name="politicalPartyId" value="" type="hidden" />
+			<input id="votingPaperType" name="type" value="campaign" type="hidden" />
 			<input id="votingPaperId" name="votingPaperId" value="<?php echo $votingPaper["vpa_id"]; ?>" type="hidden" />
 			<input id="votingPaperCode" name="votingPaperCode" type="hidden" />
 
@@ -84,7 +78,24 @@ if ($campaign) {
 			</div>
 
 			<div class="text-center">
+<?php				foreach($administratedParties as $index => $party) { ?>
+				<button type="button" class="btn btn-info btn-save-voting-paper-party" data-party-id="<?php echo $party["ppa_id"]; ?>">Sauver ce bulletin pour &laquo; <?php echo $party["ppa_name"]; ?> &raquo;</button>
+<?php				}?>
+
 				<button id="saveVotingPaperButton" type="button" class="btn btn-default">Sauver ce bulletin</button>
+				
+				
+<?php				$foundCampaignParty = false;
+					foreach($administratedParties as $index => $party) { 
+						if ($campaign["cam_political_party_id"] == $party["ppa_id"]) $foundCampaignParty = true; ?>
+				<button type="button" class="btn btn-info btn-load-voting-paper-party" data-party-id="<?php echo $party["ppa_id"]; ?>">Charger le bulletin pour &laquo; <?php echo $party["ppa_name"]; ?> &raquo;</button>
+<?php				} ?>
+<?php				if (!$foundCampaignParty && $campaign["cam_political_party_id"] && $campaign["cam_political_party_date"]  && $campaign["cam_political_party_date"] != "0000-00-00 00:00:00") { ?>
+				<button type="button" class="btn btn-info btn-load-voting-paper-party" data-party-id="<?php echo $campaign["ppa_id"]; ?>">Charger le bulletin pour &laquo; <?php echo $campaign["ppa_name"]; ?> &raquo;</button>
+<?php				} ?>
+
+				<button id="loadVotingPaperButton" type="button" class="btn btn-default">Afficher le dernier bulletin sauvegardé</button>
+				
 				<button id="createVotingPaperPdfButton" type="button" class="btn btn-default">Créer un pdf</button>
 			</div>
 
@@ -164,15 +175,15 @@ if ($campaign) {
 			Informations :<br/>
 			<ul style="padding-left: 5px;">
 			<?php 	if ($campaign["ppa_name"]) {?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-text="politicalParty"><?php echo $campaign["ppa_name"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="politicalParty"><?php echo $campaign["ppa_name"]; ?></span></li>
 			<?php 	}?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-text="campaignName"><?php echo $campaign["cam_name"]; ?></span></li>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-text="electoralDistrict">Circonscription <?php echo $campaign["cam_electoral_district"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="campaignName"><?php echo $campaign["cam_name"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="electoralDistrict">Circonscription <?php echo $campaign["cam_electoral_district"]; ?></span></li>
 			<?php 	if ($campaign["cam_start_date"] != "0000-00-00") {?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-text="firstTurn"><?php echo $campaign["cam_start_date"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="firstTurn"><?php echo $campaign["cam_start_date"]; ?></span></li>
 			<?php 	}?>
 			<?php 	if ($campaign["cam_finish_date"] != "0000-00-00") {?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-text="secondTurn"><?php echo $campaign["cam_finish_date"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="secondTurn"><?php echo $campaign["cam_finish_date"]; ?></span></li>
 			<?php 	}?>
 			</ul>
 
@@ -180,7 +191,7 @@ if ($campaign) {
 			Têtes de liste :<br/>
 			<ul style="padding-left: 5px;">
 			<?php 		foreach($campaign["listHeads"] as $index => $actor) {	?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-person="listHead" aria-position="<?php echo $index?>" ><?php echo $actor["add_entity"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-person="listHead" data-position="<?php echo $index?>" ><?php echo $actor["add_entity"]; ?></span></li>
 			<?php 		}?>
 			</ul>
 			<?php 	}?>
@@ -189,7 +200,7 @@ if ($campaign) {
 			Candidat-e-s :<br/>
 			<ul style="padding-left: 5px;">
 			<?php 		foreach($campaign["candidates"] as $index => $actor) {	?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-person="candidate" aria-position="<?php echo $index?>" ><?php echo $actor["add_entity"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-person="candidate" data-position="<?php echo $index?>" ><?php echo $actor["add_entity"]; ?></span></li>
 			<?php 		}?>
 			</ul>
 			<?php 	}?>
@@ -198,7 +209,7 @@ if ($campaign) {
 			Suppléant-e-s :<br/>
 			<ul style="padding-left: 5px;">
 			<?php 		foreach($campaign["substitutes"] as $index => $actor) {	?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" aria-person="substitute" aria-position="<?php echo $index?>" ><?php echo $actor["add_entity"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-person="substitute" data-position="<?php echo $index?>" ><?php echo $actor["add_entity"]; ?></span></li>
 			<?php 		}?>
 			</ul>
 			<?php 	}?>
@@ -260,7 +271,6 @@ if ($campaign) {
 			</div>
 		</div>
 		<div id="votingPaper" style="position: relative; box-sizing: content-box; display: inline-block; border-width: 2px; border-color: grey; border-style: inset; width: 148mm; height: 105mm;">
-			<?php echo $votingPaper["vpa_code"]; ?>
 		</div>
 
 	</div>

@@ -1,3 +1,5 @@
+/* global $ */
+
 function changePaperFormat() {
 	var votingPaper = $("#votingPaper");
 	var paperFormat = $("#paperFormat option:selected").val();
@@ -13,6 +15,44 @@ function changePaperFormat() {
 			votingPaper.css({width: "210mm", height: "297mm"});
 			break;
 	}
+}
+
+function loadCampaignVotingPaper() {
+	$.get("do_loadCampaignVotingPaper.php", {campaignId: $("#campaignId").val()}, function(data) {
+		if (data.ok) {
+			var votingPaper = data.votingPaper;
+			
+			$("#paperFormat").val(votingPaper.vpa_format);
+			$("#votingPaper").html(votingPaper.vpa_code);
+			
+			changePaperFormat();
+			
+			initHandlers();
+			initSelectorHandlers();
+			initTextHandlers();
+		}
+	}, "json");
+}
+
+function loadPartyVotingPaper() {
+	var form = {};
+	form["partyId"] = $(this).data("party-id");
+	form["templateId"] = $("#templateId").val();
+
+	$.get("do_loadPartyVotingPaper.php", form, function(data) {
+		if (data.ok) {
+			var votingPaper = data.votingPaper;
+			
+			$("#paperFormat").val(votingPaper.vpa_format);
+			$("#votingPaper").html(votingPaper.vpa_code);
+			
+			changePaperFormat();
+			
+			initHandlers();
+			initSelectorHandlers();
+			initTextHandlers();
+		}
+	}, "json");
 }
 
 function getVotingPaperCode() {
@@ -65,6 +105,19 @@ function createVotingPaperPdf() {
         contentType: false,
         processData: false
     });
+}
+
+function sendVotingPaperPartyForm() {
+	$("#votingPaperType").val("party");
+	$("#politicalPartyId").val($(this).data("party-id"));
+
+	sendVotingPaperForm();
+}
+
+function sendVotingPaperCampaignForm() {
+	$("#votingPaperType").val("campaign");
+
+	sendVotingPaperForm();
 }
 
 function sendVotingPaperForm() {
@@ -163,6 +216,7 @@ function drawRectangle(selection) {
 
 	addContainerHoverHandler(container);
 	addContainerDraggable(container);
+	addContainerResizable(container);
 }
 
 function addContainerDraggable(container) {
@@ -173,6 +227,9 @@ function addContainerDraggable(container) {
 }
 
 function addContainerResizable(container) {
+	container.resizable({
+	});
+
 //	container.find("img, rectangle").resizable();
 }
 
@@ -198,12 +255,12 @@ function addContainerHoverHandler(container) {
 }
 
 function selectRange(selection) {
-	$("#votingPaper div").removeClass("selected").css("borderStyle", "dotted");
+	$("#votingPaper > div").removeClass("selected").css("borderStyle", "dotted");
 	selectedIds = [];
 
 	selection = normalizeSelection(selection);
 
-	$("#votingPaper div").each(function() {
+	$("#votingPaper > div").each(function() {
 		var offset = $(this).offset();
 		var width = $(this).width();
 		var height = $(this).height();
@@ -271,7 +328,7 @@ function selectRectangle() {
 	var rectangle = $(this);
 	selectedId = $(this).parent().attr("id");
 
-	$("#votingPaper div").removeClass("selected").css("borderStyle", "dotted");
+	$("#votingPaper > div").removeClass("selected").css("borderStyle", "dotted");
 	$(this).parent().addClass("selected").css("borderStyle", "solid");
 
 	$("#widthInput").val(rectangle.css("width"));
@@ -292,7 +349,7 @@ function selectImage() {
 	var image= $(this);
 	selectedId = $(this).parent().attr("id");
 
-	$("#votingPaper div").removeClass("selected").css("borderStyle", "dotted");
+	$("#votingPaper > div").removeClass("selected").css("borderStyle", "dotted");
 	$(this).parent().addClass("selected").css("borderStyle", "solid");
 
 	$("#widthInput").val(image.css("width"));
@@ -314,7 +371,7 @@ function selectText() {
 	var text = $(this);
 	selectedId = $(this).parent().attr("id");
 
-	$("#votingPaper div").removeClass("selected").css("borderStyle", "dotted");
+	$("#votingPaper > div").removeClass("selected").css("borderStyle", "dotted");
 	$(this).parent().addClass("selected").css("borderStyle", "solid");
 
 	$("#textInput").val(text.text());
@@ -364,8 +421,8 @@ function inPaperDrop(event, ui) {
 		maxHeight: ""
 	});
 	container.find("img").each(function() {
-		$(this).attr("aria-width", $(this).width());
-		$(this).attr("aria-height", $(this).height());
+		$(this).attr("data-width", $(this).width());
+		$(this).attr("data-height", $(this).height());
 
 		$(this).css({
 			maxWidth: $("#votingPaper").css("width"),
@@ -376,10 +433,11 @@ function inPaperDrop(event, ui) {
 
 	addContainerHoverHandler(container);
 	addContainerDraggable(container);
+	addContainerResizable(container);
 }
 
 function initHandlers() {
-	var container = $("#votingPaper div");
+	var container = $("#votingPaper > div");
 
 	container.addClass("undrop");
 	container.css({
@@ -507,7 +565,7 @@ function initHandlers() {
 		textSpan.css("fontSize", $("#fontSizeInput").val());
 
 		if (textSpan.hasClass("votingPaper-mutable")) {
-			textSpan.attr("aria-text", textSpan.text());
+			textSpan.attr("data-text", textSpan.text());
 		}
 	});
 
@@ -530,8 +588,8 @@ function initHandlers() {
 		if (!selectedId) return;
 
 		var image = $("#" + selectedId + " img");
-		var width = image.attr("aria-width");
-//		var height = image.attr("aria-height");
+		var width = image.attr("data-width");
+//		var height = image.attr("data-height");
 
 		image.css({
 					width: width + "px",
@@ -570,7 +628,7 @@ function initTextHandlers() {
 		$("#selectionButton").click();
 
 		var children = $("<span class=\"votingPaper-mutable\">Nouveau texte</span>");
-		children.attr("aria-text", children.text());
+		children.attr("data-text", children.text());
 
 		var container = getContainer();
 		container.append(children);
@@ -596,8 +654,8 @@ function initTextHandlers() {
 			maxHeight: ""
 		});
 		container.find("img").each(function() {
-			$(this).attr("aria-width", $(this).width());
-			$(this).attr("aria-height", $(this).height());
+			$(this).attr("data-width", $(this).width());
+			$(this).attr("data-height", $(this).height());
 
 			$(this).css({
 				maxWidth: $("#votingPaper").css("width"),
@@ -701,6 +759,8 @@ function initGrayPicker() {
 		$(this).css({borderColor: "#000000"});
 	}, function() {
 		var targetId = $("#colorTarget").val();
+		if (targetId == "") return;
+
 		var selectedColor = $("#" + targetId + " span.color").css("background-color");
 
 		if (selectedColor == $(this).css("background-color")) {
@@ -713,6 +773,9 @@ function initGrayPicker() {
 
 	grayPicker.find("div").click(function() {
 		var targetId = $("#colorTarget").val();
+		
+		if (targetId == "") return;
+		
 		grayPickerContainer.hide();
 		grayPickerContainer.offset({left: 0, top: 0});
 
@@ -746,19 +809,22 @@ function initGrayPicker() {
 	$("#foregroundColor").change(function() {
 		if (!selectedId) return;
 
-		$("#" + selectedId).children().css({color: $(this).find(".color").css("background-color")});
+		$("#" + selectedId).children().eq(0).css({color: $(this).find(".color").css("background-color")});
 	});
 
 	$("#backgroundColor").change(function() {
 		if (!selectedId) return;
 
-		$("#" + selectedId).children().css({backgroundColor: $(this).find(".color").css("background-color")});
+		$("#" + selectedId).children().eq(0).css({backgroundColor: $(this).find(".color").css("background-color")});
 	});
 }
 
 $(function() {
-	$("#saveVotingPaperButton").click(sendVotingPaperForm);
+	$("#saveVotingPaperButton").click(sendVotingPaperCampaignForm);
+	$(".btn-save-voting-paper-party").click(sendVotingPaperPartyForm);
 	$("#createVotingPaperPdfButton").click(createVotingPaperPdf);
+	$("#loadVotingPaperButton").click(loadCampaignVotingPaper);
+	$(".btn-load-voting-paper-party").click(loadPartyVotingPaper);
 
 	$("#paperFormat").change(function() {
 		changePaperFormat();
@@ -782,10 +848,7 @@ $(function() {
 	$("#multipleTools button").attr("disabled", "disabled");
 	$("#imageTools").hide();
 
-	changePaperFormat();
-	initHandlers();
-	initSelectorHandlers();
-	initTextHandlers();
-
 	initGrayPicker();
+	
+	loadCampaignVotingPaper();
 });
