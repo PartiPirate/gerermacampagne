@@ -180,10 +180,10 @@ if ($campaign) {
 				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="campaignName"><?php echo $campaign["cam_name"]; ?></span></li>
 				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="electoralDistrict">Circonscription <?php echo $campaign["cam_electoral_district"]; ?></span></li>
 			<?php 	if ($campaign["cam_start_date"] != "0000-00-00") {?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="firstTurn"><?php echo $campaign["cam_start_date"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="firstTurn"><?php $date = new DateTime($campaign["cam_start_date"]); echo $date->format(lang("date_format")); ?></span></li>
 			<?php 	}?>
 			<?php 	if ($campaign["cam_finish_date"] != "0000-00-00") {?>
-				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="secondTurn"><?php echo $campaign["cam_finish_date"]; ?></span></li>
+				<li style="list-style-type: none;"><span class="votingPaper-text" data-text="secondTurn"><?php $date = new DateTime($campaign["cam_finish_date"]); echo $date->format(lang("date_format")); ?></span></li>
 			<?php 	}?>
 			</ul>
 

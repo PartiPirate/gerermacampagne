@@ -46,6 +46,28 @@ function loadPartyVotingPaper() {
 			$("#paperFormat").val(votingPaper.vpa_format);
 			$("#votingPaper").html(votingPaper.vpa_code);
 			
+			$("#votingPaper > div > .votingPaper-text").each(function() {
+				var key = null;
+				if ((key = $(this).data("text"))) {
+					var text = $("#itemDiv *[data-text="+key+"]").text();
+					$(this).text(text);
+				}	
+				else if ((key = $(this).data("person"))) {
+					var position = $(this).data("position");
+					var text = "";
+
+					$("#itemDiv *[data-person="+key+"]").each(function() {
+						if ($(this).data("position") == position) {
+							text = $(this).text();
+						}
+					});
+
+					if (text) {
+						$(this).text(text);
+					}
+				}	
+			});
+
 			changePaperFormat();
 			
 			initHandlers();
