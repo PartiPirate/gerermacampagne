@@ -225,8 +225,8 @@ class MessageBo {
 						$results[$index]["mes_to_label"] = $results[$index]["to_cam_name"];
 						break;
 					default:
-						break;
 						$results[$index]["mes_to_label"] = $results[$index]["to_cam_name"];
+						break;
 				}
 
 				$results[$index]["mes_code"] = md5($line["mes_id"] . "-" . $this->config["salt"]);

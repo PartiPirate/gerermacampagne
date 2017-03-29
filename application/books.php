@@ -29,6 +29,7 @@ if ($campaign) {
 	$bin = $bout = $cin = $cout = 0;
 
 	$onlyQuotations = array();
+	$unpaidInvoices = array();
 
 	foreach($inlines as $inline) {
 // 		print_r($inline);
@@ -47,6 +48,11 @@ if ($campaign) {
 
 			if (!$hasInvoice) {
 				$onlyQuotations[] = $inline;
+			}
+		}
+		else if ($inline["bin_type"] == "invoice") {
+			if (!$inline["payment"]["ipa_id"]) {
+				$unpaidInvoices[] = $inline;
 			}
 		}
 
@@ -221,11 +227,16 @@ if ($campaign) {
 					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "input") { echo $formatedAmount; }?></td>
 					<td class="text-right"><?php if ($inline["bin_book"] == "campaign" && $inline["bin_column"] == "output") { echo $formatedAmount; }?></td>
 					<td class="text-center">
+						<!--
+						<pre>
+						<?php print_r($inline); ?>
+						</pre>
+						-->
 						<?php	if ($inline["bin_type"] == "quotation") {?>
 						<button class="btn btn-primary btn-xs btn-set-invoice" 
 							data-inline-id="<?php echo $inline["bin_id"]; ?>" ><span class="glyphicon glyphicon-euro"></span> <?php echo lang("books_actions_set_invoice"); ?></button>
 						<?php	} ?>
-						<?php	if ($inline["bin_type"] == "invoice" && false) {?>
+						<?php	if ($inline["bin_type"] == "invoice" && !$inline["payment"]["ipa_id"]) {?>
 						<button class="btn btn-success btn-xs btn-pay-invoice" 
 							data-inline-id="<?php echo $inline["bin_id"]; ?>" ><span class="glyphicon glyphicon-euro"></span> <?php echo lang("books_actions_pay"); ?></button>
 						<?php	} ?>
@@ -270,6 +281,7 @@ if ($campaign) {
 				include("dialogs/declareDonation.php");
 				include("dialogs/addQuotation.php");
 				include("dialogs/addInvoice.php");
+				include("dialogs/payInvoice.php");
 	?>
 
 	<?php 	} else {

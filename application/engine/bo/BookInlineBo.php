@@ -127,6 +127,7 @@ class BookInlineBo {
 					LEFT JOIN donations ON bin_id = don_book_inline_id
 					LEFT JOIN inline_documents ON bin_id = ido_book_inline_id
 					LEFT JOIN documents ON doc_id = ido_document_id
+					LEFT JOIN invoice_payments ON ipa_book_inline_id = bin_id
 					WHERE
 						1 = 1 
 					AND	bin_campaign_id = :bin_campaign_id	";
@@ -170,21 +171,30 @@ class BookInlineBo {
 				$inlines[$line["bin_id"]]["bin_type"] = $line["bin_type"];
 				$inlines[$line["bin_id"]]["bin_code"] = $line["bin_code"];
 				$inlines[$line["bin_id"]]["bin_transaction_date"] = $line["bin_transaction_date"];
+				$inlines[$line["bin_id"]]["bin_payment_type"] = $line["bin_payment_type"];
 
 				// TODO add salt from config
 				$secureCode = md5($line["bin_id"] . " - " . $line["bin_campaign_id"] . " - salt");
 
 				$inlines[$line["bin_id"]]["bin_secure_code"] = $secureCode;
 
-
 				if (!isset($inlines[$line["bin_id"]]["documents"])) {
 					$inlines[$line["bin_id"]]["documents"] = array();
+				}
+
+				if (!isset($inlines[$line["bin_id"]]["payment"])) {
+					$inlines[$line["bin_id"]]["payment"] = array();
 				}
 
 				$inlines[$line["bin_id"]]["documents"][$line["doc_id"]]["doc_id"] = $line["doc_id"];
 				$inlines[$line["bin_id"]]["documents"][$line["doc_id"]]["ido_type"] = $line["ido_type"];
 				$inlines[$line["bin_id"]]["documents"][$line["doc_id"]]["doc_label"] = $line["doc_label"];
 				$inlines[$line["bin_id"]]["documents"][$line["doc_id"]]["doc_name"] = $line["doc_name"];
+
+				$inlines[$line["bin_id"]]["payment"]["ipa_id"] = $line["ipa_id"];
+				$inlines[$line["bin_id"]]["payment"]["ipa_date"] = $line["ipa_date"];
+				$inlines[$line["bin_id"]]["payment"]["bin_payment_type"] = $line["bin_payment_type"];
+
 //				$inlines[$line["bin_id"]]["documents"][$line["doc_id"]]["doc_id"] = $line["doc_id"];
 			}
 

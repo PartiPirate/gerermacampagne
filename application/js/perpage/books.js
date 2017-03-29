@@ -199,20 +199,15 @@ $(function() {
 		$("#addInvoiceForm #inlineDate").val(selectedOption.attr("data-date"));
 	});
 
-	$('#addInvoiceDiv #inlineDate, #addQuotationDiv #inlineDate, #declareDonationDiv #inlineDate').parent("div").datetimepicker({
+	$("#invoiceSelect").change(function() {
+		var selectedOption = $("#invoiceSelect option:selected");
+
+		$("#payInvoiceForm #amount").val(selectedOption.attr("aria-amount"));
+		$("#payInvoiceForm #inlineDate").val(selectedOption.attr("data-date"));
+	});
+
+	$('#addInvoiceDiv #inlineDate, #payInvoiceDiv #inlineDate, #addQuotationDiv #inlineDate, #declareDonationDiv #inlineDate').parent("div").datetimepicker({
     	language: userLanguage
-	});
-
-	$("#declareDonationDiv #closeButton").click(function(event) {
-    	$("#declareDonationDiv").modal('hide');
-	});
-
-	$("#addQuotationDiv #closeButton").click(function(event) {
-    	$("#addQuotationDiv").modal('hide');
-	});
-
-	$("#addInvoiceDiv #closeButton").click(function(event) {
-    	$("#addInvoiceDiv").modal('hide');
 	});
 
 	$("#declareDonationDiv #declareDonationButton").click(function(event) {
@@ -302,10 +297,52 @@ $(function() {
 	    });
 	});
 
+	$("#payInvoiceDiv #payInvoiceButton").click(function(event) {
+    	$("#payInvoiceDiv #payInvoiceButton").attr("disabled", "disabled");
+
+	    var formData = new FormData($('#payInvoiceForm')[0]);
+	    $.ajax({
+	        url: 'do_payInvoice.php',  //Server script to process data
+	        type: 'POST',
+	        xhr: function() {  // Custom XMLHttpRequest
+	            var myXhr = $.ajaxSettings.xhr();
+	            if(myXhr.upload){ // Check if upload property exists
+	                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
+	            }
+	            return myXhr;
+	        },
+	        //Ajax events
+	        success: function(data) {
+        		data = JSON.parse(data);
+	        	$("#payInvoiceDiv").modal('hide');
+	        	if (data.ok) {
+//	        		window.location.reload(true);
+	        	}
+	        },
+	        data: formData,
+	        cache: false,
+	        contentType: false,
+	        processData: false
+	    });
+	});
+
 	$(".btn-add-invoice").click(function(event) {
 		$("input[name=invoiceSourceRadios]").removeAttr("checked");
 		$("#invoiceSource").val("");
 		checkInvoiceSource();
+		$("#quotationSelect").val(0);
+		$("#quotationSelect").change();
+	});
+
+	$("#inline-table").on("click", ".inline .btn-pay-invoice", function(event) {
+		var inlineId = $(this).data("inline-id");
+		var inline = $("#inline-table .inline[data-id=" + inlineId + "]");
+		var label = inline.find(".inline-label").text();
+
+		$("#payInvoiceDiv").modal("show");
+
+		$("#invoiceSelect").val(inlineId);
+		$("#invoiceSelect").change();
 	});
 
 	$("#inline-table").on("click", ".inline .btn-set-invoice", function(event) {
@@ -314,8 +351,8 @@ $(function() {
 		var label = inline.find(".inline-label").text();
 
 		$("#addInvoiceDiv").modal("show");
-		$("#fromQuotationRadio").click();		
-		$("#quotationSelect").val(0);
+		$("#fromQuotationRadio").click();
+		$("#quotationSelect").val(inlineId);
 		$("#quotationSelect").change();
 	});
 
@@ -377,6 +414,9 @@ $(function() {
 		}
 	});
 
-	addModifyInlineHandlers();
+	$(".modal #closeButton").click(function(event) {
+    	$(this).parents(".modal").modal('hide');
+	});
 
+	addModifyInlineHandlers();
 });

@@ -43,6 +43,10 @@ $lang["code_7023"] = "7023 - Emprunt auprès d'une formation politique";
 $lang["code_7025"] = "7025 - Emprunt auprès des personnes physique";
 $lang["code_7031"] = "7031 - Versements définitif des formations politiques";
 
+$lang["code_DA"] = "DA - Dépenses payées par le mandataire";
+$lang["code_DB"] = "DB - Dépenses payées par les formations politiques";
+$lang["code_DC"] = "DC - Concours en nature";
+
 $lang["payment_type_cash"] = "En espèce";
 $lang["payment_type_check"] = "Chèque";
 $lang["payment_type_cb"] = "Carte Bleue";
