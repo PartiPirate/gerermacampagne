@@ -101,7 +101,7 @@ foreach($administratedParties as $index => $party) {
 	</div>
 	
 	<?php 	foreach($administratedParties as $index => $party) {?>
-	<button class="btn btn-primary btn-send-mail" data-from-id="<?php echo $party["ppa_id"]; ?>" data-from-type="party" ><span class="glyphicon glyphicon-envelope"></span></button>
+	<button class="btn btn-primary btn-send-mail" data-from-id="<?php echo $party["ppa_id"]; ?>" data-from-type="party" ><span class="glyphicon glyphicon-envelope"></span> <?php echo $party["ppa_name"]; ?></button>
 	<?php 	} ?>
 </div>
 
