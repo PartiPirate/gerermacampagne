@@ -150,6 +150,7 @@ if ($userId) {
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $user; ?> <span
 							class="caret"></span> </a>
 						<ul class="dropdown-menu" role="menu">
+							<li><a href="mycoordinates.php"><?php echo lang("menu_mycoordinates"); ?></a></li>
 							<li><a href="mypreferences.php"><?php echo lang("menu_mypreferences"); ?></a></li>
 							<li><a href="myparties.php"><?php echo lang("menu_myparties"); ?></a></li>
 							<li><a href="mycampaigns.php"><?php echo lang("menu_mycampaigns"); ?></a></li>

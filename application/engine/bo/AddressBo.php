@@ -18,10 +18,18 @@
 */
 
 class AddressBo {
+	
+	var $TABLE = "addresses";
+	var $ID_FIELD = "add_id";
+
 	var $pdo = null;
+	var $config = null;
 
 	function __construct($pdo) {
 		$this->pdo = $pdo;
+		
+		global $config;
+		$this->config = $config;
 	}
 
 	static function newInstance($pdo) {
@@ -138,6 +146,51 @@ class AddressBo {
 		return $results;
 	}
 
+	function create(&$address) {
+		$query = "	INSERT INTO $this->TABLE () VALUES ()	";
+
+		$statement = $this->pdo->prepare($query);
+//				echo showQuery($query, $args);
+
+		try {
+			$statement->execute();
+			$address[$this->ID_FIELD] = $this->pdo->lastInsertId();
+
+			return true;
+		}
+		catch(Exception $e){
+			echo 'Erreur de requète : ', $e->getMessage();
+		}
+
+		return false;
+	}
+
+	function update($address) {
+		$query = "	UPDATE $this->TABLE SET ";
+
+		$separator = "";
+		foreach($address as $field => $value) {
+			$query .= $separator;
+			$query .= $field . " = :". $field;
+			$separator = ", ";
+		}
+
+		$query .= "	WHERE $this->ID_FIELD = :$this->ID_FIELD ";
+
+//		echo showQuery($query, $address);
+
+		$statement = $this->pdo->prepare($query);
+		$statement->execute($address);
+	}
+
+	function save(&$address) {
+ 		if (!isset($address[$this->ID_FIELD]) || !$address[$this->ID_FIELD]) {
+			$this->create($address);
+		}
+
+		$this->update($address);
+	}
+
 	function addAddress(&$address) {
 		$query = "	INSERT INTO addresses
 						(add_entity, add_line_1, add_line_2,
@@ -161,5 +214,61 @@ class AddressBo {
 		}
 
 		return false;
+	}
+	
+	function getById($id) {
+		$filters = array($this->ID_FIELD => intval($id));
+
+		$results = $this->getByFilters($filters);
+
+		if (count($results)) {
+			return $results[0];
+		}
+
+		return null;
+	}
+
+	function getByFilters($filters = null) {
+		if (!$filters) $filters = array();
+		$args = array();
+
+		$query = "	SELECT $this->TABLE.*
+					FROM $this->TABLE
+					WHERE
+						1 = 1 \n";
+
+		if (isset($filters[$this->ID_FIELD])) {
+			$args[$this->ID_FIELD] = $filters[$this->ID_FIELD];
+			$query .= " AND $this->ID_FIELD = :$this->ID_FIELD \n";
+		}
+
+//		$query .= "	ORDER BY cte_parent_id ASC , cte_order ASC ";
+
+		$query .= "	ORDER BY add_entity DESC  ";
+
+		$statement = $this->pdo->prepare($query);
+//		echo showQuery($query, $args);
+
+		$results = array();
+
+		try {
+			$statement->execute($args);
+			$results = $statement->fetchAll();
+
+			foreach($results as $index => $line) {
+				foreach($line as $field => $value) {
+					if (is_numeric($field)) {
+						unset($results[$index][$field]);
+					}
+				}
+
+				$results[$index]["add_code"] = md5($line["add_id"] . "-address-" . $this->config["salt"]);
+			}
+		}
+		catch(Exception $e){
+			echo 'Erreur de requète : ', $e->getMessage();
+		}
+
+		return $results;
 	}
 }

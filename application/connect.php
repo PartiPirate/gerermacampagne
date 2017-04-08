@@ -92,6 +92,12 @@ if (isset($_GET["error"])) {
 					<button id="connectButton" name="connectButton" class="btn btn-primary"><?php echo lang("common_connect"); ?></button>
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<div class="col-md-12 text-center">
+					<a href="register.php" ><?php echo lang("register_link"); ?></a>
+				</div>
+			</div>
 		</fieldset>
 	</form>
 

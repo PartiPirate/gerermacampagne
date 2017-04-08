@@ -19,9 +19,13 @@
 
 class UserBo {
 	var $pdo = null;
+	var $config = null;
 
 	function __construct($pdo) {
 		$this->pdo = $pdo;
+		
+		global $config;
+		$this->config = $config;
 	}
 
 	static function newInstance($pdo) {
@@ -138,6 +142,8 @@ class UserBo {
 						unset($results[$index][$field]);
 					}
 				}
+
+				$results[$index]["use_code"] = md5($line["use_id"] . "-user-" . $this->config["salt"]);
 			}
 		}
 		catch(Exception $e){
