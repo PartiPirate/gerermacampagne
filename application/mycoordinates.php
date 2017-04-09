@@ -17,17 +17,17 @@
     along with GererMaCampagne.  If not, see <http://www.gnu.org/licenses/>.
 */
 include_once("header.php");
-require_once("engine/bo/AddressBo.php");
-require_once("engine/bo/UserBo.php");
+//require_once("engine/bo/AddressBo.php");
+//require_once("engine/bo/UserBo.php");
 require_once("engine/utils/SessionUtils.php");
 
-$userBo = UserBo::newInstance($connection);
-$addressBo = AddressBo::newInstance($connection);
-$dbuser = $userBo->get(SessionUtils::getUserId($_SESSION));
+//$userBo = UserBo::newInstance($connection);
+//$addressBo = AddressBo::newInstance($connection);
+//$dbuser = $userBo->get(SessionUtils::getUserId($_SESSION));
 
 // print_r($dbuser);
 
-$address = $addressBo->getById($dbuser["use_address_id"]);
+//$address = $addressBo->getById($dbuser["use_address_id"]);
 
 // print_r($address);
 

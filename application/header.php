@@ -22,6 +22,8 @@ include_once("language/language.php");
 require_once("engine/bo/PoliticalPartyBo.php");
 require_once("engine/bo/CampaignBo.php");
 require_once("engine/bo/TaskBo.php");
+require_once("engine/bo/UserBo.php");
+require_once("engine/bo/AddressBo.php");
 include_once("engine/utils/bootstrap_forms.php");
 require_once("engine/utils/SessionUtils.php");
 
@@ -64,6 +66,12 @@ if ($userId) {
 
 	$userCampaigns = $campaignBo->getCampaigns(array("userId" => $userId, "withRights" => true));
 	$campaign = $campaignBo->getCurrentCampaign($userId);
+
+	$userBo = UserBo::newInstance($connection);
+	$addressBo = AddressBo::newInstance($connection);
+
+	$dbuser = $userBo->get($userId);
+	$address = $addressBo->getById($dbuser["use_address_id"]);
 }
 
 ?>
@@ -147,10 +155,19 @@ if ($userId) {
 					</li>
 
 					<?php 	if ($user) {?>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $user; ?> <span
-							class="caret"></span> </a>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							<?php	if (!$address || !$address["add_entity"]) {
+										?><span class="text-warning glyphicon glyphicon-warning-sign"></span><?php
+									}
+							?>
+							<?php echo $user; ?> <span class="caret"></span> </a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="mycoordinates.php"><?php echo lang("menu_mycoordinates"); ?></a></li>
+							<li><a href="mycoordinates.php">
+							<?php	if (!$address || !$address["add_entity"]) {
+										?><span class="text-warning glyphicon glyphicon-warning-sign"></span><?php
+									}
+							?>
+								<?php echo lang("menu_mycoordinates"); ?></a></li>
 							<li><a href="mypreferences.php"><?php echo lang("menu_mypreferences"); ?></a></li>
 							<li><a href="myparties.php"><?php echo lang("menu_myparties"); ?></a></li>
 							<li><a href="mycampaigns.php"><?php echo lang("menu_mycampaigns"); ?></a></li>
