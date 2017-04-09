@@ -75,8 +75,26 @@
 								<select id="payment_type" name="payment_type" class="form-control">
 									<option value="DA"><?php echo lang("code_DA"); ?></option>
 									<option value="DB"><?php echo lang("code_DB"); ?></option>
-									<option value="DC"><?php echo lang("code_DC"); ?></option>
+									<option value="DC-C"><?php echo lang("code_DC_C"); ?></option>
+									<option value="DC-FP"><?php echo lang("code_DC_FP"); ?></option>
+									<option value="DC-PP"><?php echo lang("code_DC_PP"); ?></option>
 								</select>
+							</div>
+						</div>
+
+						<div class="form-group has-feedback" id="paymentInvoiceTypeDiv">
+							<label class="col-md-3 control-label" for="paymentInvoiceTypeButtons">Mode de règlement</label>
+							<div class="col-md-8" id="paymentInvoiceTypeDiv">
+								<input type="hidden" name="paymentInvoiceType" id="paymentInvoiceType">
+								<div id="paymentInvoiceTypeButtons" class="btn-group" role="group">
+									<button value="nature" type="button" class="btn btn-default"><?php echo lang("payment_type_nature"); ?></button>
+									<!--
+									<button value="cash" type="button" class="btn btn-default"><?php echo lang("payment_type_cash"); ?></button>
+									-->
+									<button value="check" type="button" class="btn btn-default active"><?php echo lang("payment_type_check"); ?></button>
+									<button value="cb" type="button" class="btn btn-default"><?php echo lang("payment_type_cb"); ?></button>
+									<button value="transfer" type="button" class="btn btn-default"><?php echo lang("payment_type_transfer"); ?></button>
+								</div>
 							</div>
 						</div>
 

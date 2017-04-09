@@ -42,11 +42,23 @@ $lang["code_7022"] = "7022 - Emprunts bancaires du candidat";
 $lang["code_7023"] = "7023 - Emprunt auprès d'une formation politique";
 $lang["code_7025"] = "7025 - Emprunt auprès des personnes physique";
 $lang["code_7031"] = "7031 - Versements définitif des formations politiques";
+$lang["code_7032"] = "7032 – dépenses payées directement par les formations politiques";
+$lang["code_7050"] = "7050 – concours en nature fournis par les candidats";
+$lang["code_7051"] = "7051 – concours en nature fournis par les formations politiques";
+$lang["code_7052"] = "7052 – concours en nature fournis par les personnes physiques";
+
+$lang["code_7010"] = "7010 - Don de personne physique";
+$lang["code_7010"] = "7010 - Don de personne physique";
+$lang["code_7010"] = "7010 - Don de personne physique";
+$lang["code_7010"] = "7010 - Don de personne physique";
 
 $lang["code_DA"] = "DA - Dépenses payées par le mandataire";
 $lang["code_DB"] = "DB - Dépenses payées par les formations politiques";
-$lang["code_DC"] = "DC - Concours en nature";
+$lang["code_DC_C"] = "DC - Concours en nature fournis par les candidat-e-s";
+$lang["code_DC_FP"] = "DC - Concours en nature fournis par les formation politique";
+$lang["code_DC_PP"] = "DC - Concours en nature fournis par les personnes physiques";
 
+$lang["payment_type_nature"] = "En nature";
 $lang["payment_type_cash"] = "En espèce";
 $lang["payment_type_check"] = "Chèque";
 $lang["payment_type_cb"] = "Carte Bleue";

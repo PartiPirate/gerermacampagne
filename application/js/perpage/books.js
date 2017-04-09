@@ -326,6 +326,40 @@ $(function() {
 	    });
 	});
 
+	$("#payInvoiceDiv #payment_type").change(function() {
+		var paymentType = $(this).val();
+
+		$("#paymentInvoiceTypeButtons button").removeAttr("disabled");
+		
+		switch(paymentType) {
+			case "DA":
+			case "DB":
+				$("#paymentInvoiceTypeButtons button[value=nature]").attr("disabled", "disabled");
+				$("#paymentInvoiceTypeButtons button[value=check]").click();
+				break;
+			default:
+				$("#paymentInvoiceTypeButtons button[value!=nature]").attr("disabled", "disabled");
+				$("#paymentInvoiceTypeButtons button[value=nature]").click();
+				break;
+		}
+	});
+
+
+	$("#paymentInvoiceTypeButtons button").click(function(e) {
+		$("#paymentInvoiceTypeButtons button").removeClass("active");
+		$(this).addClass("active");
+		$("#paymentInvoiceType").val($(this).val());
+		
+		/* TODO
+		if ($(this).val() == "check") {
+			$("#checkFileDiv").show();
+		}
+		else {
+			$("#checkFileDiv").hide();
+		}
+		*/
+	});
+
 	$(".btn-add-invoice").click(function(event) {
 		$("input[name=invoiceSourceRadios]").removeAttr("checked");
 		$("#invoiceSource").val("");
@@ -343,6 +377,7 @@ $(function() {
 
 		$("#invoiceSelect").val(inlineId);
 		$("#invoiceSelect").change();
+		$("#payInvoiceDiv #payment_type").change();
 	});
 
 	$("#inline-table").on("click", ".inline .btn-set-invoice", function(event) {

@@ -187,7 +187,7 @@ if ($campaign) {
 				<tr class="inline" data-id="<?php echo $inline["bin_id"]; ?>" data-inline-code="<?php echo $inline["bin_secure_code"]; ?>">
 					<td>
 						<span class="inline-label" data-inline-id="<?php echo $inline["bin_id"]; ?>"><?php echo $inline["bin_label"]; ?></span>
-						<?php echo $inline["bin_type"]; ?>
+						<?php //echo $inline["bin_type"]; ?>
 					</td>
 					<td>
 						<?php foreach($inline["documents"] as $document) {

@@ -78,6 +78,9 @@ else {
 	$invoicePayment["ipa_date"] = $date->format("Y-m-d");
 }
 
+$invoicePayment["ipa_type"] = $_REQUEST["payment_type"];
+$paymentInvoiceType = $_REQUEST["paymentInvoiceType"];
+
 // If it's not paid by the representative, give a credit inline 
 if ($_REQUEST["payment_type"] != InvoicePaymentBo::$DA) {
 	$creditInline = array();
@@ -88,21 +91,47 @@ if ($_REQUEST["payment_type"] != InvoicePaymentBo::$DA) {
 	$creditInline["bin_campaign_id"] = $campaign["cam_id"];
 	$creditInline["bin_label"] = "Paiement de la facture &laquo; " . $invoice["bin_label"] . " &raquo;";
 	$creditInline["bin_transaction_date"] = $invoicePayment["ipa_date"];
+	$creditInline["bin_payment_type"] = $paymentInvoiceType;
+
+	switch($_REQUEST["payment_type"]) {
+		case "DB" :
+			$creditInline["bin_code"] = 7032;
+			break;
+		case "DC-C" :
+			$creditInline["bin_code"] = 7050;
+			$invoicePayment["ipa_type"] = "DC";
+			break;
+		case "DC-FP" :
+			$creditInline["bin_code"] = 7051;
+			$invoicePayment["ipa_type"] = "DC";
+			break;
+		case "DC-PP" :
+			$creditInline["bin_code"] = 7052;
+			$invoicePayment["ipa_type"] = "DC";
+			break;
+	}
 	
 	// Save it;
+	$bookBo->addInline($creditInline);
 	
 	// Put into the payment information
-	$invoicePayment["ipa_credit_book_inline_id"] = "toto";
+	$invoicePayment["ipa_credit_book_inline_id"] = $creditInline["bin_id"];
 
 	$data["creditInline"] = $creditInline;
 }
 
 $invoicePayment["ipa_book_inline_id"] = $invoice["bin_id"];
-$invoicePayment["ipa_type"] = $_REQUEST["payment_type"];
+
+$invoicePaymentBo->save($invoicePayment);
+
+$invoice = array("bin_id" => $invoice["bin_id"]);
+$invoice["bin_payment_type"] = $paymentInvoiceType;
+
+$bookBo->update($invoice);
 
 $data["ok"] = "ok";
-$data["invoice"] = $invoice;
-$data["payment"] = $invoicePayment;
+//$data["invoice"] = $invoice;
+//$data["payment"] = $invoicePayment;
 
 echo json_encode($data);
 ?>
