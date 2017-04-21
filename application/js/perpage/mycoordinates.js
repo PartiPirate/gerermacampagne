@@ -25,7 +25,10 @@ function progressHandlingFunction(e) {
 
 function addHandlers() {
 
-	$("#saveCoordinatesButton").click(function() {
+	$("#saveCoordinatesButton").click(function(event) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
+
     	$("#saveCoordinatesButton").attr("disabled", "disabled");
 
     	$.post("do_updateActor.php", $("#updateActorForm").serialize(), function(data) {

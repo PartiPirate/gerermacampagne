@@ -19,7 +19,7 @@
 
 if ($campaign) {
 
-	$parties = $ppBo->getAdministratedParties($userId);
+	$parties = $ppBo->getParties();
 
 	$taskBo->startCampaign($campaign);
 

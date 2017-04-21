@@ -48,6 +48,7 @@
 <?php 				}
 					else {	?>
 					<input type="hidden" id="invoiceSource" name="invoiceSource" value="directInvoice" />
+					<input type="hidden" name="invoiceSourceRadios" id="directInvoiceRadio" value="directInvoice">
 <?php 				}	?>
 
 					<div class="modal-body">

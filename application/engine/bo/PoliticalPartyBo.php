@@ -180,6 +180,31 @@ class PoliticalPartyBo {
 		return array();
 	}
 
+	function getParties($filters = null) {
+		if (!$filters) $filters = array();
+		$args = array();
+		
+		$query = "	SELECT political_parties.*";
+		
+		$query .= "	FROM political_parties
+					WHERE
+						1 = 1 ";
+
+
+		$statement = $this->pdo->prepare($query);
+//		echo showQuery($query, $args);
+
+		try {
+			$statement->execute($args);
+			return $statement->fetchAll();
+		}
+		catch(Exception $e){
+			echo 'Erreur de requète : ', $e->getMessage();
+		}
+
+		return array();
+	}
+
 	function getAdministratedParties($userId = null) {
 		$args = array();
 		$query = "	SELECT user_rights.*, political_parties.*";

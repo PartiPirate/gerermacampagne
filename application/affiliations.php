@@ -141,16 +141,16 @@ foreach($administratedParties as $index => $party) {
 							</div>
 						</div>
 					
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6 mode-text">
-							<label class="col-md-6 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_electoralDistrict"); ?></label>
-							<div class="col-md-6">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
+							<label class="col-md-4 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_electoralDistrict"); ?></label>
+							<div class="col-md-8">
 								<p class="form-control-static"><?php echo $partyCampaign["cam_electoral_district"]; ?></p>
 							</div>
 						</div>
 
-						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-6 mode-text">
-							<label class="col-md-6 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_party"); ?></label>
-							<div class="col-md-6">
+						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
+							<label class="col-md-4 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_party"); ?></label>
+							<div class="col-md-8">
 								<p class="form-control-static"><?php echo $partyCampaign["ppa_name"]; ?></p>
 							</div>
 						</div>

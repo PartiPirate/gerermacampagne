@@ -362,7 +362,9 @@ $(function() {
 
 	$(".btn-add-invoice").click(function(event) {
 		$("input[name=invoiceSourceRadios]").removeAttr("checked");
-		$("#invoiceSource").val("");
+		if ($("input[name=invoiceSourceRadios]").length > 1) {
+			$("#invoiceSource").val("");
+		}
 		checkInvoiceSource();
 		$("#quotationSelect").val(0);
 		$("#quotationSelect").change();

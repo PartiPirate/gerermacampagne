@@ -19,8 +19,8 @@
 
 $lang["deposit_representative_declaration"] ="Dépôt du mandataire";
 $lang["open_bank_account"] ="Ouvrir un compte bancaire";
-$lang["ask_electoral_list_registration"] ="Demander l'inscription sur liste electorale";
-$lang["receive_electoral_list_registration"] ="Recevoir l'inscription sur liste electorale";
+$lang["ask_electoral_list_registration"] ="Demander l'inscription sur liste electorale OU fournir une carte nationale d'identité en cours de validité et un bulletin n°3 du casier judiciaire, pour chaque personne";
+$lang["receive_electoral_list_registration"] ="Recevoir l'inscription sur liste electorale OU fournir une carte nationale d'identité en cours de validité et un bulletin n°3 du casier judiciaire, pour chaque personne";
 $lang["deposit_candidature"] ="Dépôt de candidature";
 $lang["ask_campaign_accounts_form"] ="Demander formulaire de compte de campagne";
 $lang["search_chartered_accountant"] ="Chercher un expert-comptable";
