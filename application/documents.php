@@ -20,17 +20,45 @@ include_once("header.php");
 require_once("engine/bo/DocumentBo.php");
 
 $parties = $administratedParties;
+$partyDocuments = array();
+
 $documents = array();
 $documentBo = DocumentBo::newInstance($connection);
+$campaignParty = null;
 
 if ($campaign) {
 
 	$documents = $documentBo->getDocuments($campaign, array("sorts" => array(array("field" => "doc_id", "direction" => "DESC"))));
-//	$partyDocuments = $documentBo->getPartyDocuments($campaign, array("sorts" => array(array("field" => "doc_id", "direction" => "DESC"))));
 
-	if (false) {
-		$parties[] = $campaign;
+	$allParties = $ppBo->getParties();
+
+	foreach($allParties as $party) {
+		if ($party["ppa_id"] == $campaign["ppa_id"] && $campaign["cam_political_party_id"] != "0000-00-00") {
+			$campaignParty = $party;
+			break;
+		}
 	}
+
+	if ($campaignParty) {
+		$partyDocuments = $documentBo->getPartyDocuments($campaign, array("sorts" => array(array("field" => "doc_id", "direction" => "DESC"))));
+
+		$found = false;
+		foreach($parties as $party) {
+			if ($party["ppa_id"] == $campaignParty["ppa_id"]) {
+				$found = true;
+			}
+		}
+		
+		if (!$found) {
+			$campaignParty["not_admin"] = false;
+			$parties[] = $campaignParty;
+		}
+	}
+
+//	if (false) {
+//		$parties[] = $campaign;
+//	}
+
 }
 
 foreach($parties as $key => $party) {
@@ -107,7 +135,9 @@ foreach($parties as $key => $party) {
 		<div class="panel-heading">
 			<h3 class="panel-title clearfix vertical-middle">
 				<?php echo str_replace("{party}", $party["ppa_name"], lang("documents_party_list_title")); ?>
+				<?php if (!isset($party["not_admin"]) || $party["not_admin"]) { ?>
 				<button type="button" class="btn btn-default btn-xs pull-right addPartyDocumentButton">Ajouter un document</button>
+				<?php } ?>
 			</h3>
 		</div>
 

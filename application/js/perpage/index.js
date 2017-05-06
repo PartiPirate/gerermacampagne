@@ -275,6 +275,18 @@ $(function() {
 			$(".company-name-group").hide();
 		}
 	});
+	
+	$("#addActorDiv input").keyup(function() {
+		var email = $("#addActorDiv input#mail").val();
+		var pseudo = $("#addActorDiv input#pseudo").val();
+		
+		if (!pseudo || !email) {
+			$("#addActorButton").attr("disabled", "disabled");
+		}
+		else {
+			$("#addActorButton").removeAttr("disabled");
+		}
+	});
 
 	/* END Add actor */
 
@@ -414,5 +426,7 @@ $(function() {
 			});
 		}
 	});
+	
+	$("#addActorDiv input#mail").keyup();
 
 });
