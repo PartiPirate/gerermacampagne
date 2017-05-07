@@ -55,6 +55,18 @@ class CampaignBo {
 
 		$separator = "";
 
+		if (isset($campaign["cam_name"])) {
+			$query .= $separator;
+			$query .= " 	cam_name = :cam_name";
+			$separator = ", ";
+		}
+
+		if (isset($campaign["cam_electoral_district"])) {
+			$query .= $separator;
+			$query .= " 	cam_electoral_district = :cam_electoral_district";
+			$separator = ", ";
+		}
+
 		if (isset($campaign["cam_webdav"])) {
 			$query .= $separator;
 			$query .= " 	cam_webdav = :cam_webdav";
@@ -77,7 +89,8 @@ class CampaignBo {
 						cam_id = :cam_id ";
 
 		$statement = $this->pdo->prepare($query);
-		//		echo showQuery($query, $campaign);
+//		print_r($campaign);
+//		echo showQuery($query, $campaign);
 
 		try {
 			$statement->execute($campaign);

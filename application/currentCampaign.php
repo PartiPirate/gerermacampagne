@@ -88,11 +88,11 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>;
 		</div>
 		<form class="form-horizontal">
 			<input type="hidden" id="campaignId" name="campaignId" value="<?php echo $campaign["cam_id"]; ?>" />
-			<fieldset>
+			<fieldset id="main-campaign-data">
 				<div class="form-group has-feedback input-sm margin-bottom-0">
 					<label class="col-md-4 control-label" for="nameInput"><?php echo lang("campaign_property_name"); ?></label>
 					<div class="col-md-8">
-						<p class="form-control-static"><?php echo $campaign["cam_name"]; ?></p>
+						<p class="form-control-static editable" data-property="cam_name"><?php echo $campaign["cam_name"]; ?></p>
 					</div>
 				</div>
 				<?php	if ($campaign["cte_label"]) { ?>
@@ -106,7 +106,7 @@ var tasks = <?php echo json_encode($campaign["tasks"]); ?>;
 				<div class="form-group has-feedback input-sm margin-bottom-0">
 					<label class="col-md-4 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_electoralDistrict"); ?></label>
 					<div class="col-md-8">
-						<p class="form-control-static"><?php echo $campaign["cam_electoral_district"]; ?></p>
+						<p class="form-control-static editable" data-property="cam_electoral_district"><?php echo $campaign["cam_electoral_district"]; ?></p>
 					</div>
 				</div>
 
