@@ -81,7 +81,7 @@ class BookInlineBo {
 						:bin_book, :bin_column, :bin_type, :bin_transaction_date, :bin_code, :bin_payment_type)	";
 
 		$statement = $this->pdo->prepare($query);
-		//		echo showQuery($query, $args);
+//		echo showQuery($query, $inline);
 
 		try {
 			$statement->execute($inline);

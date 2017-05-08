@@ -36,6 +36,9 @@ $lang["code_6262"] = "6262 - téléphone et télécommunications";
 $lang["code_6280"] = "6280 - frais divers";
 $lang["code_6600"] = "6600 - frais financiers";
 
+$lang["code_6613"] = "6613 - Frais financiers payés directement par le candidat";
+$lang["code_6789"] = "6789 - Menues dépenses payées directement par le candidat";
+
 $lang["code_7010"] = "7010 - Don de personne physique";
 $lang["code_7021"] = "7021 - Don de tête de liste/colistier";
 $lang["code_7022"] = "7022 - Emprunts bancaires du candidat";
@@ -47,10 +50,8 @@ $lang["code_7050"] = "7050 – concours en nature fournis par les candidats";
 $lang["code_7051"] = "7051 – concours en nature fournis par les formations politiques";
 $lang["code_7052"] = "7052 – concours en nature fournis par les personnes physiques";
 
-$lang["code_7010"] = "7010 - Don de personne physique";
-$lang["code_7010"] = "7010 - Don de personne physique";
-$lang["code_7010"] = "7010 - Don de personne physique";
-$lang["code_7010"] = "7010 - Don de personne physique";
+$lang["code_7026"] = "7026 - Montant des frais financiers payés directement par le candidat";
+$lang["code_7027"] = "7027 - Montant des menues dépenses payées directement par le candidatDon de personne physique";
 
 $lang["code_DA"] = "DA - Dépenses payées par le mandataire";
 $lang["code_DB"] = "DB - Dépenses payées par les formations politiques";

@@ -37,6 +37,7 @@ require_once("engine/bo/DocumentBo.php");
 require_once("engine/bo/LogActionBo.php");
 require_once("engine/bo/TaskBo.php");
 require_once("engine/bo/UserBo.php");
+require_once("engine/bo/InvoicePaymentBo.php");
 
 $campaignId = $_REQUEST["campaignId"];
 $userId = SessionUtils::getUserId($_SESSION);
@@ -48,6 +49,7 @@ $bookBo = BookInlineBo::newInstance($connection);
 $taskBo = TaskBo::newInstance($connection);
 $documentBo = DocumentBo::newInstance($connection);
 $campaignBo = CampaignBo::newInstance($connection);
+$invoicePaymentBo = InvoicePaymentBo::newInstance($connection);
 
 $campaign = $campaignBo->getUserCampaign($userId, $campaignId);
 
@@ -151,7 +153,43 @@ if (isset($_FILES["invoiceFile"])) {
 	$bookBo->addInlineDocument($inlineDocument);
 }
 
+// The candidate pay something, so we need to add the payment and add a credit line
+if ($inline["bin_code"] == "6613" || $inline["bin_code"] == "6789") {
+
+	$creditInline = array();
+	$creditInline["bin_amount"] = $inline["bin_amount"];
+	$creditInline["bin_book"] = $inline["bin_book"];
+	$creditInline["bin_column"] = "input";
+	$creditInline["bin_type"] = "donation";
+	$creditInline["bin_campaign_id"] = $inline["bin_campaign_id"];
+	$creditInline["bin_label"] = "Paiement de la facture &laquo; " . $inline["bin_label"] . " &raquo;";
+	$creditInline["bin_transaction_date"] = $inline["bin_transaction_date"];
+	$creditInline["bin_payment_type"] = null;
+
+	switch($inline["bin_code"]) {
+		case "6613":
+			$creditInline["bin_code"] = 7026;
+			break;		
+		case "6789":
+			$creditInline["bin_code"] = 7027;
+			break;		
+	}
+
+	// Save it;
+	$bookBo->addInline($creditInline);
+
+	$invoicePayment = array();
+	$invoicePayment["ipa_date"] = $inline["bin_transaction_date"];
+//	$invoicePayment["ipa_type"] = "DA";
+	$invoicePayment["ipa_book_inline_id"] = $inline["bin_id"]; 
+	$invoicePayment["ipa_credit_book_inline_id"] = $creditInline["bin_id"];
+
+	$invoicePaymentBo->save($invoicePayment);
+}
+
 $data["ok"] = "ok";
+//$data["creditInline"] = $creditInline;
+//$data["invoicePayment"] = $invoicePayment;
 
 echo json_encode($data);
 ?>

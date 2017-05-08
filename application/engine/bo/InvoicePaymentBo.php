@@ -39,7 +39,7 @@ class InvoicePaymentBo {
 		return new InvoicePaymentBo($pdo, $config);
 	}
 
-	function create(&$message) {
+	function create(&$invoicePayment) {
 		$query = "	INSERT INTO $this->TABLE () VALUES ()	";
 
 		$statement = $this->pdo->prepare($query);
@@ -47,7 +47,7 @@ class InvoicePaymentBo {
 
 		try {
 			$statement->execute();
-			$message[$this->ID_FIELD] = $this->pdo->lastInsertId();
+			$invoicePayment[$this->ID_FIELD] = $this->pdo->lastInsertId();
 
 			return true;
 		}
@@ -58,11 +58,11 @@ class InvoicePaymentBo {
 		return false;
 	}
 
-	function update($message) {
+	function update($invoicePayment) {
 		$query = "	UPDATE $this->TABLE SET ";
 
 		$separator = "";
-		foreach($message as $field => $value) {
+		foreach($invoicePayment as $field => $value) {
 			$query .= $separator;
 			$query .= $field . " = :". $field;
 			$separator = ", ";
@@ -70,18 +70,18 @@ class InvoicePaymentBo {
 
 		$query .= "	WHERE $this->ID_FIELD = :$this->ID_FIELD ";
 
-//		echo showQuery($query, $message);
+//		echo showQuery($query, $invoicePayment);
 
 		$statement = $this->pdo->prepare($query);
-		$statement->execute($message);
+		$statement->execute($invoicePayment);
 	}
 
-	function save(&$message) {
- 		if (!isset($message[$this->ID_FIELD]) || !$message[$this->ID_FIELD]) {
-			$this->create($message);
+	function save(&$invoicePayment) {
+ 		if (!isset($invoicePayment[$this->ID_FIELD]) || !$invoicePayment[$this->ID_FIELD]) {
+			$this->create($invoicePayment);
 		}
 
-		$this->update($message);
+		$this->update($invoicePayment);
 	}
 
 	function getById($id) {

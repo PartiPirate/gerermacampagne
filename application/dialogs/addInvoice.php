@@ -159,6 +159,8 @@
 									<option value="6262"><?php echo lang("code_6262"); ?></option>
 									<option value="6280"><?php echo lang("code_6280"); ?></option>
 									<option value="6600"><?php echo lang("code_6600"); ?></option>
+									<option value="6613"><?php echo lang("code_6613"); ?></option>
+									<option value="6789"><?php echo lang("code_6789"); ?></option>
 								</select>
 							</div>
 						</div>
