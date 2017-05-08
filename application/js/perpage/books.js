@@ -54,7 +54,7 @@ function addModifyInlineHandlers() {
 		var span = $(this);
 		span.data("amount", span.html());
 
-		var input = $("<input value='' class='text-right' style='width: 60px; height: 16px;'>");
+		var input = $("<input value='' class='text-right' style='width: calc(100% - 36px); height: 16px;'>");
 		input.val(span.data("amount"));
 		
 		var closerButton = $("<button class='btn btn-danger btn-xxs btn-left-straight'><span class='glyphicon glyphicon-remove'></span></button>");
@@ -122,7 +122,7 @@ function addModifyInlineHandlers() {
 		var span = $(this);
 		span.data("label", span.html());
 
-		var input = $("<input value='' class='text-left' style='width: 140px; height: 16px; margin-left: -2px;'>");
+		var input = $("<input value='' class='text-left' style='width: calc(100% - 19px); height: 16px; margin-left: -2px;'>");
 		input.val(span.data("label"));
 		
 		var closerButton = $("<button class='btn btn-danger btn-xxs btn-left-straight'><span class='glyphicon glyphicon-remove'></span></button>");

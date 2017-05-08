@@ -219,7 +219,7 @@ function addCampaignHandlers() {
 		var span = $(this);
 		span.data("label", span.html());
 
-		var input = $("<input value='' class='text-left' style='width: 313px; height: 22px; margin-left: -2px; margin-top: -2px; margin-bottom: -2px;'>");
+		var input = $("<input value='' class='text-left' style='width: calc(100% - 24px); height: 22px; margin-left: -2px; margin-top: -2px; margin-bottom: -2px;'>");
 		input.val(span.data("label"));
 		
 		var closerButton = $("<button class='btn btn-danger btn-xs btn-left-straight' style='margin-top: -4px; margin-bottom: -2px;'><span class='glyphicon glyphicon-remove'></span></button>");

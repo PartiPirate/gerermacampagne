@@ -127,6 +127,84 @@ function addSendMailHandlers() {
 	});	
 }
 
+function addCampaignHandlers() {
+	$(".campaign").on("click", "p.editable, h3.editable", function(event) {
+		var campaignId = $(this).parents(".campaign").data("campaign-id");
+		var property = $(this).data("property");
+
+		var span = $(this);
+		span.data("label", span.html());
+
+		var input = $("<input value='' class='text-left' style='width: calc(100% - 24px); height: 22px; margin-left: -2px; margin-top: -2px; margin-bottom: -4px;'>");
+		input.val(span.data("label"));
+		
+		var closerButton = $("<button class='btn btn-danger btn-xs btn-left-straight' style='margin-top: -4px; margin-bottom: -3px;'><span class='glyphicon glyphicon-remove'></span></button>");
+
+		span.html("");
+		span.append(input);
+		span.append(closerButton);
+		
+		var updater = function(event) {
+			if (event.type != "keydown" && (event.target == input.get(0) || event.target == span.get(0))) {
+				event.stopPropagation();
+				return;
+			}
+
+			$("*").off("click", updater);
+
+			if (event.target == closerButton.get(0) || event.target == closerButton.find("span").get(0)) {
+				closer();
+				
+				event.stopPropagation();
+				return;
+			}
+
+			var value = input.val();
+
+//			console.log("update ?");
+
+			if (value != span.data("label")) {
+				var form = {property: property, value: value, campaignId: campaignId};
+
+//				console.log(form);
+
+				$.post("do_updateCampaign.php", form, function(data) {
+				
+					input.remove();
+				
+					span.html(value);
+					span.data("label", value);
+				}, "json");
+				
+			}
+			else {
+				closer();
+			}
+		};
+		
+		var closer = function(event) {
+			var value = span.data("label");
+			input.remove();
+		
+			span.html(value);
+
+			$("*").off("click", updater);
+		}
+
+		$("*").on("click", updater);
+		input.keydown(function(event) {
+			 if(event.keyCode == 13) {
+			 	event.preventDefault();
+				
+				updater(event);
+			 }
+		})
+	});
+	
+}
+
+
+
 $(function() {
 	$(".acceptButton").click(function() {
 		var affiliationId = $(this).parents("tr").attr("aria-id");
@@ -177,4 +255,5 @@ $(function() {
 	});
 	
 	addSendMailHandlers();
+	addCampaignHandlers();
 });

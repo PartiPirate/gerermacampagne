@@ -31,6 +31,7 @@ function endsWith($haystack, $needle) {
 include_once("config/database.php");
 require_once("engine/utils/SessionUtils.php");
 require_once("engine/bo/CampaignBo.php");
+require_once("engine/bo/PoliticalPartyBo.php");
 
 $campaignId = $_REQUEST["campaignId"];
 $userId = SessionUtils::getUserId($_SESSION);
@@ -38,8 +39,22 @@ $userId = SessionUtils::getUserId($_SESSION);
 $connection = openConnection();
 
 $campaignBo = CampaignBo::newInstance($connection);
+$politicalPartyBo = PoliticalPartyBo::newInstance($connection);
 
 $campaign = $campaignBo->getUserCampaign($userId, $campaignId);
+
+if (!$campaign) {
+    $aCampaign = $campaignBo->getCampaign($campaignId);
+    $parties = $politicalPartyBo->getAdministratedParties($userId);
+    
+    foreach($parties as $party) {
+        if ($party["ppa_id"] == $aCampaign["cam_political_party_id"]) {
+            $campaign = $aCampaign;
+
+            break;
+        }
+    }
+}
 
 if (!$campaign) exit();
 

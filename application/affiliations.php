@@ -128,7 +128,7 @@ foreach($administratedParties as $index => $party) {
 		>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title"><?php echo $partyCampaign["cam_name"]; ?></h3>
+					<h3 class="panel-title editable" data-property="cam_name"><?php echo $partyCampaign["cam_name"] ? $partyCampaign["cam_name"] : "&nbsp;"; ?></h3>
 				</div>
 
 				<form class="form-horizontal">
@@ -137,14 +137,14 @@ foreach($administratedParties as $index => $party) {
 						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
 							<label class="col-md-4 control-label" for="campaignTemplateInput"><?php echo lang("campaign_property_template"); ?></label>
 							<div class="col-md-8">
-								<p class="form-control-static"><?php echo $partyCampaign["cte_label"]; ?></p>
+								<p class="form-control-static editable"><?php echo $partyCampaign["cte_label"]; ?></p>
 							</div>
 						</div>
 					
 						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
 							<label class="col-md-4 control-label" for="electoralDistrictInput"><?php echo lang("campaign_property_electoralDistrict"); ?></label>
 							<div class="col-md-8">
-								<p class="form-control-static"><?php echo $partyCampaign["cam_electoral_district"]; ?></p>
+								<p class="form-control-static editable" data-property="cam_electoral_district"><?php echo $partyCampaign["cam_electoral_district"]; ?></p>
 							</div>
 						</div>
 
@@ -162,8 +162,6 @@ foreach($administratedParties as $index => $party) {
 									$date = new DateTime($partyCampaign["cam_start_date"]);
 									$date = $date->format(lang("date_format"));
 									echo $date;
-//									print_r($date);
-//									echo $partyCampaign["cam_start_date"]; 
 								?></p>
 							</div>
 						</div>
@@ -172,10 +170,9 @@ foreach($administratedParties as $index => $party) {
 							<label class="col-md-6 control-label" for="finishDateInput"><?php echo lang("campaign_property_finishDate"); ?></label>
 							<div class="col-md-6">
 								<p class="form-control-static"><?php 
-                                                                        $date = new DateTime($partyCampaign["cam_finish_date"]);
-                                                                        $date = $date->format(lang("date_format"));
-                                                                        echo $date;
-//									echo $partyCampaign["cam_finish_date"]; 
+                                    $date = new DateTime($partyCampaign["cam_finish_date"]);
+                                    $date = $date->format(lang("date_format"));
+                                    echo $date;
 								?></p>
 							</div>
 						</div>
@@ -184,11 +181,13 @@ foreach($administratedParties as $index => $party) {
 						<?php	$separator = "";
 								$candidates = "";
 
-//								print_r($partyCampaign["actors"]);
-
 								foreach($partyCampaign["actors"] as $actor) {
 									$candidates .= $separator;
 									$candidates .= $actor["add_entity"];
+									
+									if (!$actor["add_entity"]) {
+										$candidates .= $actor["use_login"];
+									}
 									$separator = ", ";
 								}?>
 						<div class="form-group has-feedback input-sm margin-bottom-0 col-md-12 mode-text">
