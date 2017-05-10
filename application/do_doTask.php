@@ -34,14 +34,19 @@ require_once("engine/bo/DocumentBo.php");
 require_once("engine/bo/LogActionBo.php");
 require_once("engine/bo/TaskBo.php");
 require_once("engine/bo/UserBo.php");
+require_once("engine/bo/CampaignBo.php");
 
 $taskId = $_REQUEST["taskId"];
 $campaignId = $_REQUEST["campaignId"];
+$userId = SessionUtils::getUserId($_SESSION);
 
 $connection = openConnection();
 
 $taskBo = TaskBo::newInstance($connection);
 $documentBo = DocumentBo::newInstance($connection);
+$campaignBo = CampaignBo::newInstance($connection);
+
+$campaign = $campaignBo->getUserCampaign($userId, $campaignId);
 
 $task = $taskBo->getTask($taskId, $campaignId);
 
@@ -94,7 +99,7 @@ if (count($_FILES)) {
 
 if (count($task["tas_implies"])) {
 	foreach($task["tas_implies"] as $imply) {
-		$taskBo->duplicateTaskModel(array("cam_id" => $campaignId), $imply);
+		$taskBo->duplicateTaskModel($campaign, $imply);
 	}
 }
 
